@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JSXGraph template</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript"
+    charset="UTF-8"></script>
+  <!-- The next line is optional: MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+  <div id="jxgbox" class="jxgbox" style="width:500px; height:300px;"></div>
+
+  <script>
+    // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
+    var board = JXG.JSXGraph.initBoard('jxgbox', {
+      boundingbox: [-2, 8, 12, -2],
+      axis: false,
+      keepaspectratio: true,
+      showNavigation: false,
+      showCopyright: false
+    });
+
+    var aa = 0;
+    var bb = 10;
+    var angleB_radians = 0.8;
+    var angleA_radians = 1.2;
+
+
+
+    // Point B
+    var p1 = board.create('point', [aa, 0], { // feed in x-coordinate of point B here 
+      name: 'B',
+      size: 0.1,
+      fixed: true,
+      visible: true,
+      strokeColor: '#901B77',
+      fillColor: '#901B77',
+      label: {
+        fontSize: 15,
+        autoPosition: true,
+        offset: [-10, -10]
+      }
+    });
+
+    // Point A
+    var p2 = board.create('point', [bb, 0], { // feed in x-coordinate of point B here
+      name: 'A',
+      size: 0.1,
+      fixed: true,
+      visible: true,
+      strokeColor: '#901B77',
+      fillColor: '#901B77',
+      label: {
+        fontSize: 15,
+        autoPosition: true,
+        offset: [0, -10]
+      }
+    });
+
+    // Edge AB (has to be horizontal!)
+    var l1 = board.create('line', [p1, p2], {
+      fixed: true,
+      straightFirst: false,
+      straightLast: false,
+      strokeWidth: 2,
+      strokeColor: '#901B77',
+    });
+
+    // ----- Construct ray from B through C -------
+    // define a rotation from bottom left of given angle
+    var t1 = board.create('transform', [angleB_radians, p1], { // feed in angle B in radians here 
+      type: 'rotate'
+    });
+    // dummy point to rotate
+    var p3 = board.create('point', [p1.X() + 0.1, p1.Y()], {
+      name: '',
+      visible: false
+    });
+    // rotated dummy point
+    var p4 = board.create('point', [p3, t1], {
+      name: '',
+      visible: false
+    });
+    // ray
+    var l2 = board.create('line', [p1, p4], {
+      fixed: true,
+      straightFirst: false,
+      straightLast: true,
+      strokeWidth: 2,
+      visible: false
+    });
+
+    // ----- Construct ray from A through C -------
+    // define a rotation from bottom right of given angle
+    var t2 = board.create('transform', [Math.PI - angleA_radians, p2], { // feed in angle A in radians here 
+      type: 'rotate'
+    });
+    // dummy point to rotate
+    var p5 = board.create('point', [p2.X() + 0.1, p2.Y()], {
+      name: '',
+      visible: false
+    });
+    // rotated dummy point
+    var p6 = board.create('point', [p5, t2], {
+      name: '',
+      visible: false
+    });
+    // ray
+    var l3 = board.create('line', [p2, p6], {
+      fixed: true,
+      straightFirst: false,
+      straightLast: true,
+      strokeWidth: 2,
+      visible: false
+    });
+
+    // ----- Construct Point C and rest of triangle -------
+    // Point C is the intersection of the two rays
+    var p7 = board.create('intersection', [l2, l3, 0], {
+      name: 'C',
+      size: 0.1,
+      fixed: true,
+      visible: true,
+      strokeColor: '#901B77',
+      fillColor: '#901B77',
+      label: {
+        fontSize: 15,
+        autoPosition: true,
+        offset: [-5, 15]
+      }
+    });
+    // Edge BC
+    var l1 = board.create('line', [p1, p7], {
+      fixed: true,
+      straightFirst: false,
+      straightLast: false,
+      strokeWidth: 2,
+      strokeColor: '#901B77',
+    });
+    // Edge AC
+    var l1 = board.create('line', [p2, p7], {
+      fixed: true,
+      straightFirst: false,
+      straightLast: false,
+      strokeWidth: 2,
+      strokeColor: '#901B77',
+    });
+
+
+  </script>
+
+</body>
+
+</html>

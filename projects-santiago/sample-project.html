@@ -14,7 +14,7 @@
 
 <body>
 
-  <div id="jxgbox" class="jxgbox" style="width:500px; height:300px;"></div>
+  <div id="jxgbox" class="jxgbox" style="width:500px; height:600px;"></div>
 
   <script>
     // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
@@ -28,10 +28,8 @@
 
     var aa = 0;
     var bb = 10;
-    var angleB_radians = 0.8;
-    var angleA_radians = 1.2;
-
-
+    var angleB_radians = 1.2;
+    var angleA_radians = 0.8;
 
     // Point B
     var p1 = board.create('point', [aa, 0], { // feed in x-coordinate of point B here 
@@ -49,7 +47,7 @@
     });
 
     // Point A
-    var p2 = board.create('point', [bb, 0], { // feed in x-coordinate of point B here
+    var p2 = board.create('point', [bb, 0], { // feed in x-coordinate of point A here
       name: 'A',
       size: 0.1,
       fixed: true,

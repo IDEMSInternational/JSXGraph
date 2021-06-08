@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Venn Diagram template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  </head>
+  <body>
+
+  <div id="jxgbox" class="jxgbox" style="width:500px; height:500px;"></div>
+
+  <script>
+        
+    /* 
+    Template for creating a three factor Venn diagrams.
+    Adjust controls below to suit the template to your question.
+    */
+
+    // CONTROLS:
+
+    // Change "jxgbox" to divid for STACK questions
+    var boardBox = "jxgbox";
+
+    // Set background color of Venn Diagram and Highlight color using "colorName" or "#hexCode"
+    var backgroundColor = "white";
+    var highlightColor = "pink";
+
+    // Adjust the labels for the three sections of the Venn Diagram. For LaTeX, use \\(..\\)
+    var factorLabelsOn = true;
+    var factorAName = "Factor A";
+    var factorBName = "Factor B";
+    var factorCName = "Factor C";
+    var factorFontSize = 20;
+
+    // Adjust the values in each section of the Venn Diagram. For LaTeX, use \\(..\\)
+    var secLabelsOn = true;
+    var secNoneVal = "A' n B' n C'";
+    var secAVal = "A n B' n C'";
+    var secBVal = "A' n B n C'";
+    var secCVal = "A' n B' n C";
+    var secAnBVal = "A n B n C'";
+    var secAnCVal = "A n B' n C";
+    var secBnCVal = "A' n B n C";
+    var secAnBnCVal = "A n B n C";
+    var secFontSize = 15;
+
+    // Adjust which sections of the Venn Diagram are highlighted
+    var highNone = false;
+    var highA = false;
+    var highB = false;
+    var highC = false;
+    var highAnB = false;
+    var highAnC = false;
+    var highBnC = false;
+    var highAnBnC = false;
+
+    // SCRIPT
+
+    // Board:
+
+    JXG.Options.text.useMathJax=true;
+    var board = JXG.JSXGraph.initBoard(boardBox, {
+      boundingbox: [-6, 6, 6, -6],
+      keepaspectratio:true,
+      showNavigation:false,
+      showCopyright:false,
+    });
+
+    // Venn Diagram:
+
+    var centerStyle = {
+      fixed:true,
+      visible:false
+    };
+    var centerA = board.create("point", [0,1.732], centerStyle);
+    var centerB = board.create("point", [-1.5,-0.866], centerStyle);
+    var centerC = board.create("point", [1.5,-0.866], centerStyle);
+
+    var circleStyle = {
+      fixed:true,
+      highlight:false,
+      strokeColor:"black",
+    };
+
+    var circleA = board.create("circle", [centerA,3], circleStyle);
+    var circleB = board.create("circle", [centerB,3], circleStyle);
+    var circleC = board.create("circle", [centerC,3], circleStyle);
+
+    // Factor Labels:
+
+    var labelStyle = {
+      visible:factorLabelsOn,
+      fontSize:factorFontSize,
+      fixed:true,
+      highlight:false,
+      useMathJax:true,
+      parse:false,
+      anchorX:"middle",
+      anchorY:"middle"
+    };
+
+    var labelA = board.create("text",[0,5.2,factorAName], labelStyle);
+    var labelB = board.create("text",[-2.2,-4.4,factorBName], labelStyle);
+    var labelC = board.create("text",[2.2,-4.4,factorCName], labelStyle);
+
+    // Values for each section of diagram:
+
+    var secStyle = {
+      visible:secLabelsOn,
+      fontSize:secFontSize,
+      fixed:true,
+      highlight:false,
+      useMathJax:true,
+      parse:false,
+      anchorX:"middle",
+      anchorY:"middle",
+    };
+
+    var secNone = board.create("text", [3.5,4.4,secNoneVal], secStyle);
+    var secA = board.create("text", [0,3,secAVal], secStyle);
+    var secB = board.create("text", [-2.8,-1.4,secBVal], secStyle);
+    var secC = board.create("text", [2.8,-1.4,secCVal], secStyle);
+    var secAnB = board.create("text", [-1.8,1.2,secAnBVal], secStyle);
+    var secAnC = board.create("text", [1.8,1.2,secAnCVal], secStyle);
+    var secBnC = board.create("text", [0,-2,secBnCVal], secStyle);
+    var secAnBnC = board.create("text", [0,0.1,secAnBnCVal], secStyle);
+
+    // Highlighting:
+
+    var interStyle = {
+      visible:false,
+      fixed:true
+    };
+    var outerInterAB = board.create("intersection", [circleA, circleB, 0], interStyle);
+    var outerInterAC = board.create("intersection", [circleA, circleC, 1], interStyle);
+    var outerInterBC = board.create("intersection", [circleB, circleC, 0], interStyle);
+
+    // Highlighting AnBnC:
+
+    var AnBnCfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:3
+    };
+
+    if (highAnBnC) {
+      AnBnCfillStyle.fillColor = highlightColor;
+    } else {
+      AnBnCfillStyle.fillColor = backgroundColor;
+    };
+
+    board.create("sector", [centerC, centerA, centerB], AnBnCfillStyle);
+    board.create("sector", [centerA, centerB, centerC], AnBnCfillStyle);
+    board.create("sector", [centerB, centerC, centerA], AnBnCfillStyle);
+
+    // Highlighting AnB/AnC/BnC:
+
+    var AnBfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:2
+    };
+
+    var AnCfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:2
+    };
+
+    var BnCfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:2
+    };
+
+    if (highAnB) {
+      AnBfillStyle.fillColor = highlightColor;
+    } else {
+      AnBfillStyle.fillColor = backgroundColor;
+    };
+
+    if (highAnC) {
+      AnCfillStyle.fillColor = highlightColor;
+    } else {
+      AnCfillStyle.fillColor = backgroundColor;
+    };
+
+    if (highBnC) {
+      BnCfillStyle.fillColor = highlightColor;
+    } else {
+      BnCfillStyle.fillColor = backgroundColor;
+    };
+
+    board.create("sector", [centerA, outerInterAB, centerC], AnBfillStyle);
+    board.create("sector", [centerB, centerC, outerInterAB], AnBfillStyle);
+
+    board.create("sector", [centerC, outerInterAC, centerB], AnCfillStyle);
+    board.create("sector", [centerA, centerB, outerInterAC], AnCfillStyle);
+
+    board.create("sector", [centerB, outerInterBC, centerA], BnCfillStyle);
+    board.create("sector", [centerC, centerA, outerInterBC], BnCfillStyle);
+
+  // Highlighting A/B/C:
+
+  var AfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:1
+    };
+
+    var BfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:1
+    };
+
+    var CfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:1
+    };
+
+    if (highA) {
+      AfillStyle.fillColor = highlightColor;
+    } else {
+      AfillStyle.fillColor = backgroundColor;
+    };
+
+    if (highB) {
+      BfillStyle.fillColor = highlightColor;
+    } else {
+      BfillStyle.fillColor = backgroundColor;
+    };
+
+    if (highC) {
+      CfillStyle.fillColor = highlightColor;
+    } else {
+      CfillStyle.fillColor = backgroundColor;
+    };
+
+    board.create("sector", [centerA, outerInterAC, outerInterAB], AfillStyle);
+    board.create("sector", [centerB, outerInterAB, outerInterBC], BfillStyle);
+    board.create("sector", [centerC, outerInterBC, outerInterAC], CfillStyle);
+
+    // Highlighting A' n B' n C':
+
+    var backStyle = {
+      fixed:true,
+      highlight:false,
+      borders:{
+        fixed:true,
+        highlight:false,
+        strokeWidth:2,
+        strokeColor:"black"
+      },
+      vertices:{
+        fixed:true,
+        visible:false
+      },
+      fillOpacity:1,
+      layer:0
+    };
+
+    if (highNone) {
+      backStyle.fillColor = highlightColor;
+    } else {
+      backStyle.fillColor = backgroundColor;
+    }
+
+    var background = board.create("polygon", [[-5.2,5.8],[5.2,5.8],[5.2,-5.2],[-5.2,-5.2]], backStyle);
+
+  </script>
+
+  </body>
+</html>

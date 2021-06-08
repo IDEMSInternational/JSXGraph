@@ -1,0 +1,455 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>3D Shape Projection</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  </head>
+  <body>
+
+  <div id="jxgbox" class="jxgbox" style="width:500px; height:500px;"></div>
+
+  <script>
+
+    var zoom = 2;
+
+    var board = JXG.JSXGraph.initBoard("jxgbox", {
+      boundingBox:[-zoom, zoom, zoom, -zoom],
+      showCopyright:false,
+      showNavigation:false,
+    })
+
+    // Function to project point in 3D onto a plane through the origin normal to [xN,yN,zN];
+    function flatten_point([x,y,z]) {
+        return([x,y]);
+    };
+
+    // Functions to rotate point in 3D around x, y and z axes
+    function rotate_x([x,y,z], angle) {
+        return([
+            x,
+            Math.cos(angle)*y - Math.sin(angle)*z,
+            Math.sin(angle)*y + Math.cos(angle)*z
+        ]);
+    };
+
+    function rotate_y([x,y,z], angle) {
+        return([
+            Math.sin(angle)*z + Math.cos(angle)*x,
+            y,
+            Math.cos(angle)*z - Math.sin(angle)*x
+        ]);
+    };
+
+    function rotate_z([x,y,z], angle) {
+        return([
+            Math.cos(angle)*x - Math.sin(angle)*y,
+            Math.sin(angle)*x + Math.cos(angle)*y,
+            z
+        ]);
+    };
+
+    // Function to create a point-projection pair:
+    function make_point([x,y,z], style) {
+        var point = {
+            coords:[x,y,z],
+            proj:board.create("point", flatten_point([x,y,z]), style)
+        }
+        elements.push(point);
+        return(point);
+    };
+    
+    // List containing all 3D elements to be displayed (used to update position for user movement)
+    elements = [];
+
+    //  CREATE AXES:
+    function print_axes(xCol, yCol, zCol) {
+        
+        pointList = [
+            make_point([0,0,0], {visible:false}),
+            make_point([1,0,0], {visible:false}),
+            make_point([0,1,0], {visible:false}),
+            make_point([0,0,1], {visible:false})
+        ];
+
+        axisStyle = {
+            fixed:true, 
+            highlight:false,
+            strokeWidth:1
+        }
+
+        axisStyle.strokeColor = xCol;
+        var xAxis = board.create("arrow", 
+            [pointList[0].proj, pointList[1].proj], axisStyle);
+        axisStyle.strokeColor = yCol;
+        var yAxis = board.create("arrow", 
+            [pointList[0].proj, pointList[2].proj], axisStyle);
+        axisStyle.strokeColor = zCol;
+        var zAxis = board.create("arrow", 
+            [pointList[0].proj, pointList[3].proj], axisStyle);
+    
+    };
+
+    // CREATE CUBE:
+    function print_cube([x,y,z], sideLength, [rotX,rotY,rotZ]) {
+
+        var pointStyle = {visible:false};
+
+        pointList = [
+            [1,1,1],
+            [1,1,-1],
+            [1,-1,-1],
+            [1,-1,1],
+            [-1,-1,1],
+            [-1,1,1],
+            [-1,1,-1],
+            [-1,-1,-1],
+        ];
+
+        var i;
+        var j;
+        for (i in pointList) {
+            j = rotate_z(rotate_y(rotate_x(pointList[i], rotX), rotY), rotZ);
+            pointList[i] = make_point([
+                x + j[0]*sideLength/2,
+                y + j[1]*sideLength/2,
+                z + j[2]*sideLength/2
+            ], pointStyle);
+        };
+
+        var faceStyle = {
+            fixed:true,
+            highlight:false,
+            borders:{
+                fixed:true,
+                highlight:false
+            }
+        }; 
+
+        var faceA = board.create("polygon", 
+            [pointList[0].proj, pointList[1].proj, pointList[2].proj, pointList[3].proj],
+            faceStyle);
+        var faceB = board.create("polygon", 
+            [pointList[0].proj, pointList[1].proj, pointList[6].proj, pointList[5].proj],
+            faceStyle);
+        var faceC = board.create("polygon", 
+            [pointList[0].proj, pointList[3].proj, pointList[4].proj, pointList[5].proj],
+            faceStyle);
+        var faceD = board.create("polygon", 
+            [pointList[1].proj, pointList[2].proj, pointList[7].proj, pointList[6].proj],
+            faceStyle);
+        var faceE = board.create("polygon", 
+            [pointList[2].proj, pointList[3].proj, pointList[4].proj, pointList[7].proj],
+            faceStyle);
+        var faceF = board.create("polygon", 
+            [pointList[4].proj, pointList[5].proj, pointList[6].proj, pointList[7].proj],
+            faceStyle);
+    
+        };
+
+    // CREATE OCTAHEDRON:
+    function print_octahedron([x,y,z], sideLength, [rotX,rotY,rotZ]) {
+        
+        var pointStyle = {visible:false};
+
+        pointList = [
+            [1,0,0],
+            [0,1,0],
+            [0,0,1],
+            [-1,0,0],
+            [0,-1,0],
+            [0,0,-1]
+        ];
+
+        var i;
+        var j;
+        for (i in pointList) {
+            j = rotate_z(rotate_y(rotate_x(pointList[i], rotX), rotY), rotZ);
+            pointList[i] = make_point([
+                x + j[0]*sideLength/Math.sqrt(2),
+                y + j[1]*sideLength/Math.sqrt(2),
+                z + j[2]*sideLength/Math.sqrt(2)
+            ], pointStyle);
+        };
+
+        var faceStyle = {
+            fixed:true,
+            highlight:false,
+            borders:{
+                fixed:true,
+                highlight:false
+            }
+        };
+
+        var faceA = board.create("polygon", 
+            [pointList[0].proj, pointList[1].proj, pointList[2].proj], faceStyle);
+        var faceB = board.create("polygon", 
+            [pointList[0].proj, pointList[1].proj, pointList[5].proj], faceStyle);
+        var faceC = board.create("polygon", 
+            [pointList[0].proj, pointList[2].proj, pointList[4].proj], faceStyle);
+        var faceC = board.create("polygon", 
+            [pointList[0].proj, pointList[4].proj, pointList[5].proj], faceStyle);
+        var faceD = board.create("polygon", 
+            [pointList[1].proj, pointList[2].proj, pointList[3].proj], faceStyle);
+        var faceE = board.create("polygon", 
+            [pointList[1].proj, pointList[3].proj, pointList[5].proj], faceStyle);
+        var faceE = board.create("polygon", 
+            [pointList[2].proj, pointList[3].proj, pointList[4].proj], faceStyle);
+        var faceF = board.create("polygon", 
+            [pointList[3].proj, pointList[4].proj, pointList[5].proj], faceStyle);
+
+    };
+
+    // CREATE TETRAHEDRON:
+    function print_tetrahedron([x,y,z], sideLength, [rotX,rotY,rotZ]) {
+                
+        var pointStyle = {visible:false};
+
+        pointList = [
+            [0,0,1],
+            [0,2*Math.sqrt(2)/3,-1/3],
+            [Math.sqrt(2/3),-Math.sqrt(2)/3,-1/3],
+            [-Math.sqrt(2/3),-Math.sqrt(2)/3,-1/3]
+        ];
+
+        var i;
+        var j;
+        for (i in pointList) {
+            j = rotate_z(rotate_y(rotate_x(pointList[i], rotX), rotY), rotZ);
+            pointList[i] = make_point([
+                x + j[0]*sideLength/(2*Math.sqrt(6)/3),
+                y + j[1]*sideLength/(2*Math.sqrt(6)/3),
+                z + j[2]*sideLength/(2*Math.sqrt(6)/3)
+            ], pointStyle);
+        };
+
+        var faceStyle = {
+            fixed:true,
+            highlight:false,
+            borders:{
+                fixed:true,
+                highlight:false
+            }
+        };
+
+        var faceA = board.create("polygon", 
+            [pointList[0].proj, pointList[1].proj, pointList[2].proj], faceStyle);
+        var faceB = board.create("polygon", 
+            [pointList[0].proj, pointList[1].proj, pointList[3].proj], faceStyle);
+        var faceC = board.create("polygon", 
+            [pointList[0].proj, pointList[2].proj, pointList[3].proj], faceStyle);
+        var faceC = board.create("polygon", 
+            [pointList[1].proj, pointList[2].proj, pointList[3].proj], faceStyle);
+
+    };
+
+    // CREATE N-PRISM:
+    function print_prism([x,y,z], noSides, sideLength, height, [rotX,rotY,rotZ]) {
+
+        var pointStyle = {visible:false};
+
+        pointList = [];
+        
+        var i;
+        for (i = 0; i < noSides; i++) {
+            pointList.push([
+                Math.cos(2*i*Math.PI/noSides)*sideLength/Math.sqrt(2*(1-Math.cos(2*Math.PI/noSides))),
+                Math.sin(2*i*Math.PI/noSides)*sideLength/Math.sqrt(2*(1-Math.cos(2*Math.PI/noSides))),
+                height/2]);
+            pointList.push([
+                Math.cos(2*i*Math.PI/noSides)*sideLength/Math.sqrt(2*(1-Math.cos(2*Math.PI/noSides))),
+                Math.sin(2*i*Math.PI/noSides)*sideLength/Math.sqrt(2*(1-Math.cos(2*Math.PI/noSides))),
+                -height/2]);
+        };
+
+        var j;
+        for (i in pointList) {
+            j = rotate_z(rotate_y(rotate_x(pointList[i], rotX), rotY), rotZ);
+            pointList[i] = make_point([
+                x + j[0],
+                y + j[1],
+                z + j[2]
+            ], pointStyle);
+        };
+
+        var faceStyle = {
+            fixed:true,
+            highlight:false,
+            borders:{
+                fixed:true,
+                highlight:false
+            }
+        };
+
+        var faceStyle = {
+            fixed:true,
+            highlight:false,
+            borders:{
+                fixed:true,
+                highlight:false
+            }
+        };
+
+        var topPoints = [];
+        var botPoints = [];
+
+        for (i = 0; i < pointList.length/2; i++) {
+            topPoints.push(pointList[2*i].proj);
+            botPoints.push(pointList[2*i + 1].proj);
+            board.create("polygon", [
+                pointList[2*i].proj,
+                pointList[2*i + 1].proj,
+                pointList[(2*i+3) % (noSides*2)].proj,
+                pointList[(2*i+2) % (noSides*2)].proj
+            ], faceStyle)
+        };
+
+        board.create("polygon", topPoints, faceStyle);
+        board.create("polygon", botPoints, faceStyle);
+
+    };
+
+    // CREATE PLANE:
+    function print_plane(pointList, [rotX,rotY,rotZ]) {
+
+        var pointStyle = {visible:false};
+
+        var i;
+        var j;
+        for (i in pointList) {
+            j = rotate_z(rotate_y(rotate_x(pointList[i], rotX), rotY), rotZ);
+            pointList[i] = make_point([j[0],j[1],j[2]], pointStyle);
+        };
+
+        var faceStyle = {
+            fixed:true,
+            highlight:false,
+            borders:{
+                fixed:true,
+                highlight:false
+            }
+        };
+
+        var faceA = board.create("polygon", pointList.map(function(point) {
+            return point.proj;
+        }), faceStyle);
+
+    };
+
+    // CONTROLING USER MOVEMENT:
+    window.addEventListener("keydown", function(event) {
+        
+        var i;
+        
+        if (event.key == "ArrowUp") {
+            for (i in elements) {
+                elements[i].coords = rotate_x(elements[i].coords, -Math.PI/24);
+                elements[i].proj.setPositionDirectly(
+                    JXG.COORDS_BY_USER, 
+                    flatten_point(elements[i].coords),
+                    [elements[i].proj.X(), elements[i].proj.Y()]
+                );
+            };
+            board.setBoundingBox([-zoom, zoom, zoom, -zoom]);
+        };
+
+        if (event.key == "ArrowDown") {
+            for (i in elements) {
+                elements[i].coords = rotate_x(elements[i].coords, Math.PI/24);
+                elements[i].proj.setPositionDirectly(
+                    JXG.COORDS_BY_USER, 
+                    flatten_point(elements[i].coords),
+                    [elements[i].proj.X(), elements[i].proj.Y()]
+                );
+            };
+            board.setBoundingBox([-zoom, zoom, zoom, -zoom]);
+        };
+
+        if (event.key == "ArrowRight") {
+            for (i in elements) {
+                elements[i].coords = rotate_y(elements[i].coords, Math.PI/24);
+                elements[i].proj.setPositionDirectly(
+                    JXG.COORDS_BY_USER, 
+                    flatten_point(elements[i].coords),
+                    [elements[i].proj.X(), elements[i].proj.Y()]
+                );
+            };
+            board.setBoundingBox([-zoom, zoom, zoom, -zoom]);
+        };
+
+        if (event.key == "ArrowLeft") {
+            for (i in elements) {
+                elements[i].coords = rotate_y(elements[i].coords, -Math.PI/24);
+                elements[i].proj.setPositionDirectly(
+                    JXG.COORDS_BY_USER, 
+                    flatten_point(elements[i].coords),
+                    [elements[i].proj.X(), elements[i].proj.Y()]
+                );
+            };
+            board.setBoundingBox([-zoom, zoom, zoom, -zoom]);
+        };
+
+        if (event.key == "z") {
+            for (i in elements) {
+                elements[i].coords = rotate_z(elements[i].coords, Math.PI/24);
+                elements[i].proj.setPositionDirectly(
+                    JXG.COORDS_BY_USER, 
+                    flatten_point(elements[i].coords),
+                    [elements[i].proj.X(), elements[i].proj.Y()]
+                );
+            };
+            board.setBoundingBox([-zoom, zoom, zoom, -zoom]);
+        };
+
+        if (event.key == "x") {
+            for (i in elements) {
+                elements[i].coords = rotate_z(elements[i].coords, -Math.PI/24);
+                elements[i].proj.setPositionDirectly(
+                    JXG.COORDS_BY_USER, 
+                    flatten_point(elements[i].coords),
+                    [elements[i].proj.X(), elements[i].proj.Y()]
+                );
+            };
+            board.setBoundingBox([-zoom, zoom, zoom, -zoom]);
+        };
+
+        if (event.key == "-" || event.key == "_") {
+            zoom += 0.1;
+            board.setBoundingBox([-zoom, zoom, zoom, -zoom]);
+        };
+
+        if (event.key == "+" || event.key == "=") {
+            if (zoom > 1) {
+                zoom -= 0.1;
+                board.setBoundingBox([-zoom, zoom, zoom, -zoom]);
+            };
+        };
+    });
+
+    /* 
+    
+    Create own points using: 
+    pEg = make_point([x,y,z], style);
+
+    These points can be used with any JSX objects however they are accessed by:
+    pEg.proj    (not just pEg)
+    
+    eg. Create a line in 3D space 
+    
+        pEg1 = make_point([0,0,0], style);
+        pEg2 = make_point([1,1,1], style);
+
+        board.create("segment", [pEg1.proj, pEg2.proj]);
+    
+    */
+
+    print_octahedron([0,0,0], 1, [0,0,0])
+
+  </script>
+
+  </body>
+</html>

@@ -1,135 +1,127 @@
 <!DOCTYPE HTML>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>JSXGraph template</title>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
-    <!-- The next line is optional: MathJax -->
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
-  </head>
-  <body>
-  
+
+<head>
+  <meta charset="UTF-8">
+  <title>JSXGraph template</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript"
+    charset="UTF-8"></script>
+  <!-- The next line is optional: MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
   <!--// You can define the width and height of your applet here -->
   <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
 
   <script>
     // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
-    var board = JXG.JSXGraph.initBoard('jxgbox', {
-    boundingbox: [1, 8, 9, 2],
-    keepaspectratio: true,
-    showCopyright: false,
-    axis: false
-  });
-  // Create universe box, vertices v1, v2, v3, v4 and edges 1 to 4
-  var v1 = board.create('point', [2, 1], {
-    name: "A",
-    size: 1,
-    visible: false
-  });
-  var v2 = board.create('point', [2, 7], {
-    name: "",
-    size: 0
-  });
-  var v3 = board.create('point', [8, 7], {
-    name: "",
-    size: 0
-  });
-  var v4 = board.create('point', [8, 1], {
-    name: "",
-    size: 0
-  });
-  var edge1 = board.create('line', [v1, v2], {
-    straightFirst: false,
-    straightLast: false,
-    fixed: true,
-    strokeWidth: 2
-  });
-  var edge2 = board.create('line', [v2, v3], {
-    straightFirst: false,
-    straightLast: false,
-    fixed: true,
-    strokeWidth: 2
-  });
-  var edge3 = board.create('line', [v3, v4], {
-    straightFirst: false,
-    straightLast: false,
-    fixed: true,
-    strokeWidth: 2
-  });
-  var edge4 = board.create('line', [v4, v1], {
-    straightFirst: false,
-    straightLast: false,
-    fixed: true,
-    strokeWidth: 2
-  });
-  var txt = board.create('text', [1.75, 7.25, "U"], {
-    fontSize: 20,
-    fixed: true
-  });
-  // create two circles with centres and edge points
-  var p1 = board.create('point', [4, 5], {
-    name: "",
-    size: 0
-  });
-  var p2 = board.create('point', [5.5, 5], {
-    name: "",
-    size: 0
-  });
-  var a1 = board.create('circle', [p1, p2], {
-    fixed: true
-  });
-  var txt = board.create('text', [2.5, 6.5, "A"], {
-    fontSize: 20,
-    fixed: true
-  });
-  var p3 = board.create('point', [6, 5], {
-    name: "",
-    size: 0
-  });
-  var p4 = board.create('point', [7.5, 5], {
-    name: "",
-    size: 0
-  });
-  var a2 = board.create('circle', [p3, p4], {
-    fixed: true
-  });
-  var p5 = board.create('point', [5, 3.5], {
-    name: "",
-    size: 0
-  });
-  var p6 = board.create('point', [4.5, 2], {
-    name: "",
-    size: 0
-  });
-  var a3 = board.create('circle', [p5, p6], {
-    fixed: true
-  });
-  var txt = board.create('text', [7.5, 6.5, "B"], {
-    fontSize: 20,
-    fixed: true
-  });
-  var txt = board.create('text', [6.5, 1.5, "C"], {
-    fontSize: 20,
-    fixed: true
-  });
+    var board = JXG.JSXGraph.initBoard('jxgbox', { //replace jxgbox with divid
+      boundingbox: [1, 8, 9, 2],
+      keepaspectratio: true,
+      showCopyright: false,
+      axis: false
+    });
+    // Create universe box, vertices v1, v2, v3, v4 and edges 1 to 4
+    var v1 = board.create('point', [2, 1], {
+      name: "",
+      size: 1,
+      visible: false
+    });
+    var v2 = board.create('point', [2, 7], {
+      name: "",
+      size: 0
+    });
+    var v3 = board.create('point', [8, 7], {
+      name: "",
+      size: 0
+    });
+    var v4 = board.create('point', [8, 1], {
+      name: "",
+      size: 0
+    });
+    var edge1 = board.create('line', [v1, v2], {
+      straightFirst: false,
+      straightLast: false,
+      fixed: true,
+      strokeWidth: 2
+    });
+    var edge2 = board.create('line', [v2, v3], {
+      straightFirst: false,
+      straightLast: false,
+      fixed: true,
+      strokeWidth: 2
+    });
+    var edge3 = board.create('line', [v3, v4], {
+      straightFirst: false,
+      straightLast: false,
+      fixed: true,
+      strokeWidth: 2
+    });
+    var edge4 = board.create('line', [v4, v1], {
+      straightFirst: false,
+      straightLast: false,
+      fixed: true,
+      strokeWidth: 2
+    });
+    var txt = board.create('text', [1.75, 7.25, "U"], { //replace U with name
+      fontSize: 20,
+      fixed: true
+    });
+    // create three circles with centres and edge points
+    var p1 = board.create('point', [4, 5], {
+      name: "",
+      size: 0
+    });
+    var p2 = board.create('point', [5.5, 5], {
+      name: "",
+      size: 0
+    });
+    var a1 = board.create('circle', [p1, p2], {
+      fixed: true
+    });
+    var txt = board.create('text', [2.5, 6.5, "A"], { // replace A with name
+      fontSize: 20,
+      fixed: true
+    });
+    var p3 = board.create('point', [6, 5], {
+      name: "",
+      size: 0
+    });
+    var p4 = board.create('point', [7.5, 5], {
+      name: "",
+      size: 0
+    });
+    var a2 = board.create('circle', [p3, p4], {
+      fixed: true
+    });
+    var txt = board.create('text', [7.5, 6.5, "B"], { // replace B with name
+      fontSize: 20,
+      fixed: true
+    });
+    var p5 = board.create('point', [5, 3.5], {
+      name: "",
+      size: 0
+    });
+    var p6 = board.create('point', [4.5, 2], {
+      name: "",
+      size: 0
+    });
+    var a3 = board.create('circle', [p5, p6], {
+      fixed: true
+    });
+    var txt = board.create('text', [6.5, 1.5, "C"], { // replace C with name
+      fontSize: 20,
+      fixed: true
+    });
   //
-  // Create three intersection points
-  var i1 = board.create('intersection', [a1, a2, 0], {
-    visible: false
-  });
-  var i2 = board.create('intersection', [a1, a2, 1], {
-    visible: false
-  });
-  var i3 = board.create('intersection', [a1, a3, 1], {
-    visible: false
-  });
-   
-    
-    </script>
+  </script>
 
-  
 
-  </body>
+
+</body>
+
 </html>

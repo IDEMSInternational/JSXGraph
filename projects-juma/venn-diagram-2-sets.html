@@ -19,7 +19,7 @@
 
   <script>
     // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
-    var board = JXG.JSXGraph.initBoard('jxgbox', {
+    var board = JXG.JSXGraph.initBoard('jxgbox', { //replace jxgbox with divid 
       boundingbox: [1, 8, 9, 2],
       keepaspectratio: true,
       showCopyright: false,
@@ -67,7 +67,7 @@
       fixed: true,
       strokeWidth: 2
     });
-    var txt = board.create('text', [1.75, 7.25, "U"], {
+    var txt = board.create('text', [1.75, 7.25, "U"], { //replace U with name 
       fontSize: 20,
       fixed: true
     });
@@ -83,7 +83,7 @@
     var a1 = board.create('circle', [p1, p2], {
       fixed: true
     });
-    var txt = board.create('text', [2.5, 6.5, "A"], {
+    var txt = board.create('text', [2.5, 6.5, "A"], {  // replace A with name
       fontSize: 20,
       fixed: true
     });
@@ -98,7 +98,7 @@
     var a2 = board.create('circle', [p3, p4], {
       fixed: true
     });
-    var txt = board.create('text', [7.5, 6.5, "B"], {
+    var txt = board.create('text', [7.5, 6.5, "B"], { // replace B with name
       fontSize: 20,
       fixed: true
     });

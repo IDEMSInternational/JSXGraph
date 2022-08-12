@@ -102,7 +102,22 @@
       fontSize: 20,
       fixed: true
     });
-
+    var txt = board.create('text',[4.8, 6.6, "w"], { // creating movable point x on the diagram
+      fontSize: 18,
+      fixed: false
+    });
+    var txt = board.create('text',[4.8, 5.0, "x"], { // creating movable point x on the diagram
+      fontSize: 18,
+      fixed: false
+    });
+    var txt = board.create('text', [6.0, 5.0, "y"], { // creating movable point y on the diagram
+      fontSize: 18,
+      fixed: false
+    });
+    var txt = board.create('text', [3.3, 5.0, "z"], { // creating movable point z on the diagram
+      fontSize: 18,
+      fixed: false
+    });
     // Create two intersection points
     var i1 = board.create('intersection', [a1, a2, 0], {
       visible: false

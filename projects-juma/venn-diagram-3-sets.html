@@ -18,7 +18,7 @@
   <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
 
   <script>
-    // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
+   // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
     var board = JXG.JSXGraph.initBoard('jxgbox', { //replace jxgbox with divid
       boundingbox: [1, 8, 9, 2], keepaspectratio: true, showCopyright: false, axis: true, showNavigation: true});
 
@@ -36,46 +36,18 @@
     // create three circles with centres and edge points
     var p1 = board.create('point',[4,5],{name:"",size:0});
     var p2 = board.create('point',[5.5,5],{name:"",size:0});
-    var a1 = board.create('circle',[p1,p2],{fixed:true});
+    var a1 = board.create('circle',[p1,p2],{fixed:true, visible:true});
     var txt = board.create('text',[2.5,6.5,"A"],{fontSize:20,fixed:true}); // replace A with name
 
     var p3 = board.create('point',[6,5],{name:"",size:0});
     var p4 = board.create('point',[7.5,5],{name:"",size:0});
-    var a2 = board.create('circle',[p3,p4],{fixed:true});
+    var a2 = board.create('circle',[p3,p4],{fixed:true, visible:true});
     var txt = board.create('text',[7.5,6.5,"B"],{fontSize:20,fixed:true}); // replace B with name
 
     var p5 = board.create('point',[5,3.5],{name:"",size:0});
     var p6 = board.create('point',[4.5,2],{name:"",size:0});
-    var a3 = board.create('circle',[p5,p6],{fixed:true});
+    var a3 = board.create('circle',[p5,p6],{fixed:true, visible:true});
     var txt = board.create('text',[6.5, 1.5,"C"],{fontSize:20,fixed:true}); // replace C with name
-
-    // Create intersection points
-    var x1 = board.create('point',[4.5,5],{name:"x1",size:0});
-    var x2 = board.create('point',[5.5,5],{name:"x2",size:0});
-    var x3 = board.create('point',[5,3.9],{name:"x3",size:0});
-
-    var i1 = brd.create('intersection',[x1,x2,1], {visible:true});
-    var i2 = brd.create('intersection',[x1,x3,0], {visible:true});
-    var i3 = brd.create('intersection',[x2,x3,1], {visible:true});
-    // Create three arcs surrounding the intersection area
-    var c1 = brd.create('arc', [p1, i2, i1],{visible:true});
-    var c2 = brd.create('arc', [p3, i1, i3], {visible:true});
-    var c3 = brd.create('arc', [p5, i3, i2], {visible:true});
-// Join the three arcs and fill the area.
-var c4 = JXG.joinCurves(brd, [c1, c2, c3],{ strokeColor:'black',strokeWidth:3,fillColor:'red',fillOpacity:0.2});
-
-
-/*    // Create two intersection points
-    var i1 = brd.create('intersection',[p1,p2,1], {visible:true});
-    var i2 = brd.create('intersection',[p1,p5,0], {visible:true});
-    var i3 = brd.create('intersection',[p2,p5,1], {visible:true});
-// Create three arcs surrounding the intersection area
-    var c1 = brd.create('arc', [p1, i2, i1], {visible:false});
-    var c2 = brd.create('arc', [p3, i1, i3], {visible:false});
-    var c3 = brd.create('arc', [p5, i3, i2], {visible:false});
-// Join the three arcs and fill the area.
-var c4 = JXG.joinCurves(brd, [c1, c2, c3],{ strokeColor:'black',strokeWidth:3,fillColor:'red',fillOpacity:0.2});
-*/
 
   </script>
 

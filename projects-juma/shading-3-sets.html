@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JSXGraph template</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript"
+    charset="UTF-8"></script>
+  <!-- The next line is optional: MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+  <!--// You can define the width and height of your applet here -->
+  <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+  <script>
+   JXG.joinCurves = function(board, parents, attributes) {
+        var curves = parents, 
+            attr = JXG.copyAttributes(attributes, board.options, 'curve'),
+            c = board.create('curve', [[0], [0]], attr);
+        
+        c.updateDataArray = function() {
+            var i, le = curves.length;
+
+            // The paths have to be connected
+            this.dataX = [];
+            this.dataY = [];
+            for (i = 0; i < le; i++) {
+                if (i < le - 1) {
+                    this.dataX = this.dataX.concat(curves[i].dataX.slice(0,-1));
+                    this.dataY = this.dataY.concat(curves[i].dataY.slice(0,-1));
+                } else {
+                    this.dataX = this.dataX.concat(curves[i].dataX);
+                    this.dataY = this.dataY.concat(curves[i].dataY);
+                }
+            }
+
+            if (this.dataX.length<4) {
+                this.bezierDegree = 1;
+            } else {
+                this.bezierDegree = curves[0].bezierDegree;
+            }
+        };
+        c.prepareUpdate().update().updateVisibility().updateRenderer();
+        return c;
+    };
+   // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
+    var board = JXG.JSXGraph.initBoard('jxgbox', { //replace jxgbox with divid
+      boundingbox: [1, 8, 9, 2], keepaspectratio: true, showCopyright: false, axis: true, showNavigation: true});
+
+    // Create universe box, vertices v1, v2, v3, v4 and edges 1 to 4
+    var v1 = board.create('point', [2, 1], {name: "", size: 1, visible: false});
+    var v2 = board.create('point', [2, 7], {name: "", size: 0, visible: false});
+    var v3 = board.create('point', [8, 7], {name: "", size: 0, visible: false});
+    var v4 = board.create('point', [8, 1], {name: "", size: 0, visible: false});
+    var edge1 = board.create('line', [v1, v2], {straightFirst: false, straightLast: false, fixed: true, strokeWidth: 2});
+    var edge2 = board.create('line', [v2, v3], {straightFirst: false, straightLast: false, fixed: true, strokeWidth: 2});
+    var edge3 = board.create('line', [v3, v4], {straightFirst: false, straightLast: false, fixed: true, strokeWidth: 2});
+    var edge4 = board.create('line', [v4, v1], {straightFirst: false, straightLast: false, fixed: true, strokeWidth: 2});
+    var txt = board.create('text', [1.75, 7.25, "U"], {fontSize: 20, fixed: true}); //replace U with name
+
+  // create three circles with centres and edge points
+    var p1 = board.create('point',[4,5],{name:"p1",size:0});
+    var p2 = board.create('point',[5.5,5],{name:"p2",size:0});
+    var a1 = board.create('circle',[p1,p2],{fixed:true, visible:true});
+    var txt = board.create('text',[2.5,6.5,"A"],{fontSize:20,fixed:true}); // replace A with name
+
+    var p3 = board.create('point',[6,5],{name:"p3",size:0});
+    var p4 = board.create('point',[7.5,5],{name:"p4",size:0});
+    var a2 = board.create('circle',[p3,p4],{fixed:true, visible:true});
+    var txt = board.create('text',[7.5,6.5,"B"],{fontSize:20,fixed:true}); // replace B with name
+
+    var p5 = board.create('point',[5,3.5],{name:"p5",size:0});
+    var p6 = board.create('point',[4.5,2],{name:"p6",size:0});
+    var a3 = board.create('circle',[p5,p6],{fixed:true, visible:true});
+    var txt = board.create('text',[6.5, 1.5,"C"],{fontSize:20,fixed:true}); // replace C with name
+   
+  // Create intersection points
+    var i1 = board.create('intersection',[a1,a2,0], {visible:true});
+    var i2 = board.create('intersection',[a1,a3,0], {visible:true});
+    var i3 = board.create('intersection',[a2,a3,0], {visible:true});
+    var i4 = board.create('intersection',[a1,a2,1], {visible:true});
+    var i5 = board.create('intersection',[a1,a3,1], {visible:true});
+    var i6 = board.create('intersection',[a2,a3,1], {visible:true});
+
+  // Create arcs surrounding the intersection area
+    var c1 = board.create('arc', [p1, i1, i5],{visible:true});
+    var c2 = board.create('arc', [p3, i3, i1], {visible:true});
+    var c3 = board.create('arc', [p5, i5, i3], {visible:true});
+    
+    var c4 = board.create('arc', [p1, i2, i1],{visible:true,strokeColor:'red'});
+    var c5 = board.create('arc', [p5, i3, i2],{visible:true,strokeColor:'red'});
+    var c6 = board.create('arc', [p3, i3, i1],{visible:true,strokeColor:'red'});
+
+// Join the three arcs and fill the area.
+var sh1 = JXG.joinCurves(board, [c2, c1, c3],{ strokeColor:'black',strokeWidth:3,fillColor:'red',fillOpacity:0.2});
+//var sh2 = JXG.joinCurves(board, [c2, c1, c3],{ strokeColor:'black',strokeWidth:3,fillColor:'red',fillOpacity:0.2});
+
+
+
+ </script>
+
+
+</body>
+
+</html>

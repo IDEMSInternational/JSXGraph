@@ -66,17 +66,17 @@
   // create three circles with centres and edge points
     var p1 = board.create('point',[4,5],{name:"p1",size:0});
     var p2 = board.create('point',[5.5,5],{name:"p2",size:0});
-    var a1 = board.create('circle',[p1,p2],{fixed:true, visible:true});
+    var a1 = board.create('circle',[p1,p2],{fixed:true, visible:false});
     var txt = board.create('text',[2.5,6.5,"A"],{fontSize:20,fixed:true}); // replace A with name
 
     var p3 = board.create('point',[6,5],{name:"p3",size:0});
     var p4 = board.create('point',[7.5,5],{name:"p4",size:0});
-    var a2 = board.create('circle',[p3,p4],{fixed:true, visible:true});
+    var a2 = board.create('circle',[p3,p4],{fixed:true, visible:false});
     var txt = board.create('text',[7.5,6.5,"B"],{fontSize:20,fixed:true}); // replace B with name
 
     var p5 = board.create('point',[5,3.5],{name:"p5",size:0});
     var p6 = board.create('point',[4.5,2],{name:"p6",size:0});
-    var a3 = board.create('circle',[p5,p6],{fixed:true, visible:true});
+    var a3 = board.create('circle',[p5,p6],{fixed:true, visible:false});
     var txt = board.create('text',[6.5, 1.5,"C"],{fontSize:20,fixed:true}); // replace C with name
    
   // Create intersection points
@@ -88,15 +88,15 @@
     var i6 = board.create('intersection',[a2,a3,1], {visible:true});
 
   // Create arcs surrounding the intersection area
-    var c1 = board.create('arc', [p1, i1, i5],{visible:true}); //sh1-intersection of A,B & C
+    /*var c1 = board.create('arc', [p1, i1, i5],{visible:true}); //sh1-intersection of A,B & C
     var c2 = board.create('arc', [p3, i3, i1], {visible:true});
-    var c3 = board.create('arc', [p5, i5, i3], {visible:true});
+    var c3 = board.create('arc', [p5, i5, i3], {visible:true});*/
     
     var c4 = board.create('arc', [p1, i2, i1],{visible:true}); //sh2- intersection A & C
     var c5 = board.create('arc', [p5, i3, i2],{visible:true});
     var c6 = board.create('arc', [p3, i3, i1],{visible:true});
 
-    var c7 = board.create('arc', [p3, i4, i3],{visible:true}); //sh3- intersection A & B
+   /* var c7 = board.create('arc', [p3, i4, i3],{visible:true}); //sh3- intersection A & B
     var c8 = board.create('arc', [p1, i5, i4],{visible:true});
     var c9 = board.create('arc', [p5, i5, i3],{visible:true});
 
@@ -114,15 +114,15 @@
 
     var c19 = board.create('arc', [p3, i6, i4],{visible:true}); //sh7- elements in region B only
     var c20 = board.create('arc', [p5, i6, i5],{visible:true});
-    var c21 = board.create('arc', [p1, i5, i4],{visible:true});
+    var c21 = board.create('arc', [p1, i5, i4],{visible:true});*/
+
 
     
-    
 // Join the three arcs and fill the area.
-var sh1 = JXG.joinCurves(board, [c2, c1, c3],{ strokeColor:'black',strokeWidth:1,fillColor:'red',fillOpacity:0.2});
+//var sh1 = JXG.joinCurves(board, [c2, c1, c3],{ strokeColor:'black',strokeWidth:1,fillColor:'red',fillOpacity:0.2});
 var sh2 = JXG.joinCurves(board, [c6, c5, c4],{ strokeColor:'black',strokeWidth:1,fillColor:'blue',fillOpacity:0.2});
-var sh3 = JXG.joinCurves(board, [c9, c8, c7],{ strokeColor:'black',strokeWidth:1,fillColor:'green',fillOpacity:0.2});
-var sh4 = JXG.joinCurves(board, [c11, c12, c10],{ strokeColor:'black',strokeWidth:1,fillColor:'yellow',fillOpacity:0.2});
+//var sh3 = JXG.joinCurves(board, [c9, c8, c7],{ strokeColor:'black',strokeWidth:1,fillColor:'green',fillOpacity:0.2});
+//var sh4 = JXG.joinCurves(board, [c11, c12, c10],{ strokeColor:'black',strokeWidth:1,fillColor:'yellow',fillOpacity:0.2});
 
 //var sh5 = JXG.joinCurves(board, [c14, c15, c13],{ strokeColor:'black',strokeWidth:3,fillColor:'pink',fillOpacity:0.2});//I need help here
 //var sh6 = JXG.joinCurves(board, [c17, c18, c16],{ strokeColor:'black',strokeWidth:3,fillColor:'purple',fillOpacity:0.2});//I need help here

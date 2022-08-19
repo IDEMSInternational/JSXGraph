@@ -88,38 +88,45 @@
     var i6 = board.create('intersection',[a2,a3,1], {visible:true});
 
   // Create arcs surrounding the intersection area
-    var c1 = board.create('arc', [p1, i1, i5],{visible:true}); //shade 1-intersection of A,B & C
+    var c1 = board.create('arc', [p1, i1, i5],{visible:true}); //sh1-intersection of A,B & C
     var c2 = board.create('arc', [p3, i3, i1], {visible:true});
     var c3 = board.create('arc', [p5, i5, i3], {visible:true});
     
-    var c4 = board.create('arc', [p1, i2, i1],{visible:true}); //shade 2- intersection A & C
+    var c4 = board.create('arc', [p1, i2, i1],{visible:true}); //sh2- intersection A & C
     var c5 = board.create('arc', [p5, i3, i2],{visible:true});
     var c6 = board.create('arc', [p3, i3, i1],{visible:true});
 
-    var c7 = board.create('arc', [p3, i4, i3],{visible:true}); //shade 3- intersection A & B
+    var c7 = board.create('arc', [p3, i4, i3],{visible:true}); //sh3- intersection A & B
     var c8 = board.create('arc', [p1, i5, i4],{visible:true});
     var c9 = board.create('arc', [p5, i5, i3],{visible:true});
 
-    var c10 = board.create('arc', [p5, i6, i5],{visible:true}); //shade 4- intersection B & C
+    var c10 = board.create('arc', [p5, i6, i5],{visible:true}); //sh4- intersection B & C
     var c11 = board.create('arc', [p1, i1, i5],{visible:true});
     var c12 = board.create('arc', [p3, i1, i6],{visible:true});
 
-    var c13 = board.create('arc', [p1, i4, i2],{visible:true,strokeColor:'orange'}); //shade 5- elements in region A only
-    var c14 = board.create('arc', [p5, i3, i2],{visible:true,strokeColor:'orange'});
-    var c15 = board.create('arc', [p3, i4, i3],{visible:true,strokeColor:'orange'});
+    var c13 = board.create('arc', [p1, i4, i2],{visible:true}); //sh5- elements in region A only
+    var c14 = board.create('arc', [p5, i3, i2],{visible:true});
+    var c15 = board.create('arc', [p3, i4, i3],{visible:true});
 
-    /*var c16 = board.create('arc', [p3, i6, i4],{visible:true,strokeColor:'black'}); //shade 6- elements in region B only
-    var c17 = board.create('arc', [p1, i5, i4],{visible:true,strokeColor:'black'});
-    //var c18 = board.create('arc', [p3, i4, i3],{visible:true,strokeColor:'black'});
-*/
+    var c16 = board.create('arc', [p5, i2, i6],{visible:true}); //sh6- elements in region C only
+    var c17 = board.create('arc', [p1, i2, i1],{visible:true});
+    var c18 = board.create('arc', [p3, i1, i6],{visible:true});
+
+    var c19 = board.create('arc', [p3, i6, i4],{visible:true}); //sh7- elements in region B only
+    var c20 = board.create('arc', [p5, i6, i5],{visible:true});
+    var c21 = board.create('arc', [p1, i5, i4],{visible:true});
+
+    
+    
 // Join the three arcs and fill the area.
 var sh1 = JXG.joinCurves(board, [c2, c1, c3],{ strokeColor:'black',strokeWidth:1,fillColor:'red',fillOpacity:0.2});
 var sh2 = JXG.joinCurves(board, [c6, c5, c4],{ strokeColor:'black',strokeWidth:1,fillColor:'blue',fillOpacity:0.2});
 var sh3 = JXG.joinCurves(board, [c9, c8, c7],{ strokeColor:'black',strokeWidth:1,fillColor:'green',fillOpacity:0.2});
 var sh4 = JXG.joinCurves(board, [c11, c12, c10],{ strokeColor:'black',strokeWidth:1,fillColor:'yellow',fillOpacity:0.2});
-//var sh5 = JXG.joinCurves(board, [c14, c15, c13],{ strokeColor:'black',strokeWidth:3,fillColor:'orange',fillOpacity:0.2});//I need help here
 
-
+//var sh5 = JXG.joinCurves(board, [c14, c15, c13],{ strokeColor:'black',strokeWidth:3,fillColor:'pink',fillOpacity:0.2});//I need help here
+//var sh6 = JXG.joinCurves(board, [c17, c18, c16],{ strokeColor:'black',strokeWidth:3,fillColor:'purple',fillOpacity:0.2});//I need help here
+//var sh7 = JXG.joinCurves(board, [c19, c20, c21],{ strokeColor:'black',strokeWidth:1,fillColor:'black',fillOpacity:0.2});// I need help here
 
  </script>
 

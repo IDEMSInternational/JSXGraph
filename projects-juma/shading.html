@@ -84,7 +84,7 @@
         var a3 = board.create('circle', [p5, p6], { fixed: true, visible: true });
         var txt = board.create('text', [6.5, 1.5, "C"], { fontSize: 20, fixed: true });
         
-        var i1 = board.create('curveintersection',[a1,a3], {strokeWidth: 4, strokeColor: 'red'});
+        var i1 = board.create('curveintersection',[a1,a3], {strokeWidth: 4, strokeColor: 'red'}); // this is the new code 
         var i2 = board.create('curvedifference',[i1,a2], {fillColor: 'yellow'});
         
         /* Create intersection points

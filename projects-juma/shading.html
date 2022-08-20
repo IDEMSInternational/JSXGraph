@@ -18,7 +18,7 @@
     <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
 
     <script>
-        /*      JXG.joinCurves = function (board, parents, attributes) {
+              JXG.joinCurves = function (board, parents, attributes) {
                   var curves = parents,
                       attr = JXG.copyAttributes(attributes, board.options, 'curve'),
                       c = board.create('curve', [[0], [0]], attr);
@@ -48,7 +48,7 @@
                   c.prepareUpdate().update().updateVisibility().updateRenderer();
                   return c;
               };
-      */
+      
         var board = JXG.JSXGraph.initBoard('jxgbox', {
             boundingbox: [1, 8, 9, 2],
             keepaspectratio: true,
@@ -83,23 +83,28 @@
         var p6 = board.create('point', [4.5, 2], { name: "p6", size: 0 });
         var a3 = board.create('circle', [p5, p6], { fixed: true, visible: true });
         var txt = board.create('text', [6.5, 1.5, "C"], { fontSize: 20, fixed: true });
+        
+        var i1 = board.create('curveintersection', [a1, a3], { strokeWidth: 2, strokeColor: ''});  
+        var i2 = board.create('curvedifference', [i1, a2], { fillColor: 'pink' }); //zone 1
+        var i3 = board.create('curveintersection', [a2, a1], { strokeWidth: 2, strokeColor: ''}); 
+        var i4 = board.create('curvedifference', [i3, a3], { fillColor: 'green' });//zone 2
+        var i5 = board.create('curveintersection', [a3, a2], { strokeWidth: 2, strokeColor: ''}); 
+        var i6 = board.create('curvedifference', [i5, a1], { fillColor: 'red' });//zone 3
+        
+        var n1 = board.create('intersection',[a1,a2,0], {visible:true});
+        var n2 = board.create('intersection',[a1,a3,0], {visible:true});
+        var n3 = board.create('intersection',[a2,a3,0], {visible:true});
+        var n4 = board.create('intersection',[a1,a2,1], {visible:true});
+        var n5 = board.create('intersection',[a1,a3,1], {visible:true});
+        var n6 = board.create('intersection',[a2,a3,1], {visible:true});
+        // Create arcs surrounding the intersection area of A,B & C
+        var c1 = board.create('arc', [p1, n1, n5],{visible:false}); 
+        var c2 = board.create('arc', [p3, n3, n1], {visible:false});
+        var c3 = board.create('arc', [p5, n5, n3], {visible:false});
+        // Joining the three arcs and fill the area
+        var sh1 = JXG.joinCurves(board, [c2, c1, c3],{fillColor:'yellow',fillOpacity:1.0});
+       
 
-        var i1 = board.create('curveintersection', [a1, a3], { strokeWidth: 4, strokeColor: 'red' }); // this is the new code 
-        var i2 = board.create('curvedifference', [i1, a2], { fillColor: 'yellow' });
-
-        /* Create intersection points
-        var i1 = board.create('intersection', [a1, a2, 0], { visible: true });
-        var i2 = board.create('intersection', [a1, a3, 0], { visible: true });
-        var i3 = board.create('intersection', [a2, a3, 0], { visible: true });
-
-        // Create arcs surrounding the intersection area
-        var c4 = board.create('arc', [p1, i2, i1], { visible: true });
-        var c5 = board.create('arc', [p5, i3, i2], { visible: true });
-        var c6 = board.create('arc', [p3, i3, i1], { visible: true });
-
-        // Join the three arcs and fill the area.
-        var sh2 = JXG.joinCurves(board, [c6, c5, c4], { strokeColor: 'black', strokeWidth: 1, fillColor: 'blue', fillOpacity: 0.2 });
-         */
 
     </script>
 

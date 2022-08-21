@@ -55,23 +55,23 @@
         var txt = board.create('text', [6.5, 2, "C"], { fontSize: 20, fixed: true });
 
         // Shade regions
-        // A and B and C
+        // Shading 1: A and B and C
         var v1 = false;
         var i1 = board.create('curveintersection', [a1, a2], { visible: false });
         var sh1 = board.create('curveintersection', [i1, a3], { visible: v1, fillColor: 'yellow' });
-        // A and C and not B
+        // Shading 2: A and C and not B
         var v2 = false;
         var i2 = board.create('curveintersection', [a1, a3], { visible: false });
         var sh2 = board.create('curvedifference', [i2, a2], { visible: v2, fillColor: 'yellow' });
-        // A and B and not C
+        // Shading 3: A and B and not C
         var v3 = false;
         var i3 = board.create('curveintersection', [a2, a1], { visible: false });
         var sh3 = board.create('curvedifference', [i3, a3], { visible: v3, fillColor: 'yellow' });
-        // B and C and not A
+        // Shading 4: B and C and not A
         var v4 = false;
         var i4 = board.create('curveintersection', [a3, a2], { visible: false });
         var i4 = board.create('curvedifference', [i4, a1], { visible: v4, fillColor: 'yellow' });
-        // A and not B and not C
+        // Shading 5: A and not B and not C
         var v5 = true;
         var i5 = board.create('curvedifference', [a1, a2], { visible: false });
         var sh5 = board.create('curvedifference', [i5, a3], { visible: v5, fillColor: 'yellow' });

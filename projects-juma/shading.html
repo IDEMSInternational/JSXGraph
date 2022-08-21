@@ -109,9 +109,23 @@
         // Shading. Elements in set A and B and C
         var sh1 = JXG.joinCurves(board, [c2, c1, c3],{fillColor:'pink',fillOpacity:1.0});
        
-        //Shade elements in A only & not B and not C
+        //Shade A only & not B and not C
+        var sh5 = true;
         var k5 = board.create('curvedifference', [a1, a2], { visible: false });
-        var sh5 = board.create('curvedifference', [k5, a3], { visible:true, fillColor: 'red' });
+        var sh5 = board.create('curvedifference', [k5, a3], { visible:sh5, fillColor: 'red' });
+
+        //Shade B only & not A and not C
+        var sh6 = true;
+        var k6 = board.create('curvedifference', [a2, a3], { visible: false });
+        var sh6 = board.create('curvedifference', [k6, a1], { visible:sh6, fillColor: 'red' }); 
+
+        //Shade C only & not A and not B
+        var sh7 = true;
+        var k7 = board.create('curvedifference', [a3, a1], { visible: false });
+        var sh7 = board.create('curvedifference', [k7, a2], { visible:sh7, fillColor: 'red' });
+
+        //Shade Universe 
+
 
     </script>
 

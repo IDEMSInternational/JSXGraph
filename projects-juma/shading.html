@@ -50,7 +50,7 @@
               };
       
         var board = JXG.JSXGraph.initBoard('jxgbox', {
-            boundingbox: [1, 8, 9, 2],
+            boundingbox: [1, 7, 9, 1],
             keepaspectratio: true,
             showCopyright: false,
             axis: false,
@@ -69,27 +69,32 @@
         var txt = board.create('text', [1.75, 7.25, "U"], { fontSize: 20, fixed: true });
 
         // create three circles with centres and edge points
-        var p1 = board.create('point', [4, 5], { name: "p1", size: 0 });
-        var p2 = board.create('point', [5.5, 5], { name: "p2", size: 0 });
+        //Set A
+        var p1 = board.create('point', [4, 5], { name: "p1", size: 0, visible: false });
+        var p2 = board.create('point', [5.5, 5], { name: "p2", size: 0, visible: false });
         var a1 = board.create('circle', [p1, p2], { fixed: true, visible: true });
         var txt = board.create('text', [2.5, 6.5, "A"], { fontSize: 20, fixed: true });
 
-        var p3 = board.create('point', [6, 5], { name: "p3", size: 0 });
-        var p4 = board.create('point', [7.5, 5], { name: "p4", size: 0 });
+        //Set B 
+        var p3 = board.create('point', [6, 5], { name: "p3", size: 0,visible: false });
+        var p4 = board.create('point', [7.5, 5], { name: "p4", size: 0, visible: false });
         var a2 = board.create('circle', [p3, p4], { fixed: true, visible: true });
         var txt = board.create('text', [7.5, 6.5, "B"], { fontSize: 20, fixed: true });
-
-        var p5 = board.create('point', [5, 3.5], { name: "p5", size: 0 });
-        var p6 = board.create('point', [4.5, 2], { name: "p6", size: 0 });
+  
+        //Set C
+        var p5 = board.create('point', [5, 3.5], { name: "p5", size: 0, visible: false });
+        var p6 = board.create('point', [4.5, 2], { name: "p6", size: 0, visible: false });
         var a3 = board.create('circle', [p5, p6], { fixed: true, visible: true });
         var txt = board.create('text', [6.5, 1.5, "C"], { fontSize: 20, fixed: true });
         
+        // Regions to Shade
+        // Shading 1: A and B and C
         var i1 = board.create('curveintersection', [a1, a3], { strokeWidth: 2, strokeColor: ''});  
         var i2 = board.create('curvedifference', [i1, a2], { fillColor: 'pink' }); //zone 1
         var i3 = board.create('curveintersection', [a2, a1], { strokeWidth: 2, strokeColor: ''}); 
-        var i4 = board.create('curvedifference', [i3, a3], { fillColor: 'green' });//zone 2
+        var i4 = board.create('curvedifference', [i3, a3], { fillColor: 'pink' });//zone 2
         var i5 = board.create('curveintersection', [a3, a2], { strokeWidth: 2, strokeColor: ''}); 
-        var i6 = board.create('curvedifference', [i5, a1], { fillColor: 'red' });//zone 3
+        var i6 = board.create('curvedifference', [i5, a1], { fillColor: 'pink' });//zone 3
         
         var n1 = board.create('intersection',[a1,a2,0], {visible:true});
         var n2 = board.create('intersection',[a1,a3,0], {visible:true});
@@ -101,10 +106,12 @@
         var c1 = board.create('arc', [p1, n1, n5],{visible:false}); 
         var c2 = board.create('arc', [p3, n3, n1], {visible:false});
         var c3 = board.create('arc', [p5, n5, n3], {visible:false});
-        // Joining the three arcs and fill the area
-        var sh1 = JXG.joinCurves(board, [c2, c1, c3],{fillColor:'yellow',fillOpacity:1.0});
+        // Shading. Elements in set A and B and C
+        var sh1 = JXG.joinCurves(board, [c2, c1, c3],{fillColor:'pink',fillOpacity:1.0});
        
-
+        //Shade elements in A only & not B and not C
+        var k5 = board.create('curvedifference', [a1, a2], { visible: false });
+        var sh5 = board.create('curvedifference', [k5, a3], { visible:true, fillColor: 'red' });
 
     </script>
 

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!--// You can define the width and height of your applet here -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+    <script>
+        var board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [1, 7, 9, 1],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: false,
+            showNavigation: true
+        });
+
+        // Create universe box, vertices v1, v2, v3, v4 and edges 1 to 4
+        var ver1 = board.create('point', [2, 1], { name: "", size: 1, visible: false });
+        var ver2 = board.create('point', [2, 7], { name: "", size: 0, visible: false });
+        var ver3 = board.create('point', [8, 7], { name: "", size: 0, visible: false });
+        var ver4 = board.create('point', [8, 1], { name: "", size: 0, visible: false });
+        var universe = board.create('polygon', [ver1, ver2, ver3, ver4], {fillColor:'transparent'});
+        var txt = board.create('text', [1.75, 7.25, "U"], { fontSize: 20, fixed: true });
+
+
+        // create three circles with centres and edge points
+        // Set A
+        var p1 = board.create('point', [4, 5], { name: "p1", visible: false });
+        var p2 = board.create('point', [5.5, 5], { name: "p2", visible: false });
+        var a1 = board.create('circle', [p1, p2], { fixed: true, visible: true });
+        var txt = board.create('text', [2.5, 6.5, "A"], { fontSize: 20, fixed: true });
+        // Set B
+        var p3 = board.create('point', [6, 5], { name: "p3", visible: false });
+        var p4 = board.create('point', [7.5, 5], { name: "p4", visible: false });
+        var a2 = board.create('circle', [p3, p4], { fixed: true, visible: true });
+        var txt = board.create('text', [7.5, 6.5, "B"], { fontSize: 20, fixed: true });
+        // Set C
+        var p5 = board.create('point', [5, 3.5], { name: "p5", visible: false });
+        var p6 = board.create('point', [4.5, 2], { name: "p6", visible: false });
+        var a3 = board.create('circle', [p5, p6], { fixed: true, visible: true });
+        var txt = board.create('text', [6.5, 2, "C"], { fontSize: 20, fixed: true });
+
+        // Shade regions
+        // Shading 1: A and B and C
+        var v1 = false;
+        var i1 = board.create('curveintersection', [a1, a2], { visible: false });
+        var sh1 = board.create('curveintersection', [i1, a3], { visible: v1, fillColor: 'yellow' });
+        // Shading 2: A and C and not B
+        var v2 = false;
+        var i2 = board.create('curveintersection', [a1, a3], { visible: false });
+        var sh2 = board.create('curvedifference', [i2, a2], { visible: v2, fillColor: 'yellow' });
+        // Shading 3: A and B and not C
+        var v3 = false;
+        var i3 = board.create('curveintersection', [a2, a1], { visible: false });
+        var sh3 = board.create('curvedifference', [i3, a3], { visible: v3, fillColor: 'yellow' });
+        // Shading 4: B and C and not A
+        var v4 = false;
+        var i4 = board.create('curveintersection', [a3, a2], { visible: false });
+        var i4 = board.create('curvedifference', [i4, a1], { visible: v4, fillColor: 'yellow' });
+        // Shading 5: A and not B and not C
+        var v5 = false;
+        var i5 = board.create('curvedifference', [a1, a2], { visible: false });
+        var sh5 = board.create('curvedifference', [i5, a3], { visible: v5, fillColor: 'yellow' });
+        // Shading 6: B and not A and not C
+        var v6 = false;
+        var i6 = board.create('curvedifference', [a2, a1], { visible: false });
+        var sh6 = board.create('curvedifference', [i6, a3], { visible: v6, fillColor: 'yellow' });
+        // Shading 7: C and not A and not B
+        var v7 = false;
+        var i7 = board.create('curvedifference', [a3, a1], { visible: false });
+        var sh7 = board.create('curvedifference', [i7, a2], { visible: v7, fillColor: 'yellow' });
+        // Shading 8: not A and not B and not C
+        
+        var n1 = board.create('intersection',[a1,a2,0],{name:"n1",visible:false});       
+        var n2 = board.create('intersection',[a1,a3,0],{name:"n2",visible:true});
+        var n3 = board.create('intersection',[a2,a3,0],{name:"n3",visible:false});
+        var n4 = board.create('intersection',[a1,a2,1],{name:"n4",visible:true});
+        var n5 = board.create('intersection',[a1,a3,1],{name:"n5",visible:false});
+        var n6 = board.create('intersection',[a2,a3,1],{name:"n6",visible:true});
+        var arc1 = board.create('arc',[p1,n4,n2],{strokeWidth:4,strokeColor:'red',visible: true});
+        var arc2 = board.create('arc',[p3,n6,n4],{strokeWidth:4,strokeColor:'red',visible: true});
+        var arc3 = board.create('arc',[p5,n2,n6],{strokeWidth:4,strokeColor:'red',visible: true});
+        
+        var v8 = true;
+        var v81 = board.create('curvedifference', [universe, arc1], { visible: false, fillColor: 'yellow' });
+        var v82 = board.create('curvedifference', [v81, arc2], { visible: true, fillColor: 'yellow' });
+       // var v81 = board.create('curvedifference', [v82, arc3], { visible: true, fillColor: 'yellow' });
+    </script>
+
+</body>
+
+</html>

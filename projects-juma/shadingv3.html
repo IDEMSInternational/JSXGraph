@@ -39,17 +39,17 @@
         // Set A
         var p1 = board.create('point', [4, 5], { name: "p1", visible: false });
         var p2 = board.create('point', [5.5, 5], { name: "p2", visible: false });
-        var a1 = board.create('circle', [p1, p2], { fixed: true, visible: false });
+        var a1 = board.create('circle', [p1, p2], { fixed: true, visible: true });
         var txt = board.create('text', [2.5, 6.5, "A"], { fontSize: 20, fixed: true });
         // Set B
         var p3 = board.create('point', [6, 5], { name: "p3", visible: false });
         var p4 = board.create('point', [7.5, 5], { name: "p4", visible: false });
-        var a2 = board.create('circle', [p3, p4], { fixed: true, visible: false });
+        var a2 = board.create('circle', [p3, p4], { fixed: true, visible: true });
         var txt = board.create('text', [7.5, 6.5, "B"], { fontSize: 20, fixed: true });
         // Set C
         var p5 = board.create('point', [5, 3.5], { name: "p5", visible: false });
         var p6 = board.create('point', [4.5, 2], { name: "p6", visible: false });
-        var a3 = board.create('circle', [p5, p6], { fixed: true, visible: false });
+        var a3 = board.create('circle', [p5, p6], { fixed: true, visible: true });
         var txt = board.create('text', [6.5, 2, "C"], { fontSize: 20, fixed: true });
 
         // Shade regions

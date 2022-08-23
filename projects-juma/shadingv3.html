@@ -31,7 +31,7 @@
         var ver2 = board.create('point', [2, 7], { name: "", size: 0, visible: false });
         var ver3 = board.create('point', [8, 7], { name: "", size: 0, visible: false });
         var ver4 = board.create('point', [8, 1], { name: "", size: 0, visible: false });
-        var universe = board.create('polygon', [ver1, ver2, ver3, ver4], {fillColor:'transparent'});
+        var universe = board.create('polygon', [ver1, ver2, ver3, ver4], {visible: false, fillColor:'transparent'});
         var txt = board.create('text', [1.75, 7.25, "U"], { fontSize: 20, fixed: true });
 
 
@@ -39,17 +39,17 @@
         // Set A
         var p1 = board.create('point', [4, 5], { name: "p1", visible: false });
         var p2 = board.create('point', [5.5, 5], { name: "p2", visible: false });
-        var a1 = board.create('circle', [p1, p2], { fixed: true, visible: true });
+        var a1 = board.create('circle', [p1, p2], { fixed: true, visible: false });
         var txt = board.create('text', [2.5, 6.5, "A"], { fontSize: 20, fixed: true });
         // Set B
         var p3 = board.create('point', [6, 5], { name: "p3", visible: false });
         var p4 = board.create('point', [7.5, 5], { name: "p4", visible: false });
-        var a2 = board.create('circle', [p3, p4], { fixed: true, visible: true });
+        var a2 = board.create('circle', [p3, p4], { fixed: true, visible: false });
         var txt = board.create('text', [7.5, 6.5, "B"], { fontSize: 20, fixed: true });
         // Set C
         var p5 = board.create('point', [5, 3.5], { name: "p5", visible: false });
         var p6 = board.create('point', [4.5, 2], { name: "p6", visible: false });
-        var a3 = board.create('circle', [p5, p6], { fixed: true, visible: true });
+        var a3 = board.create('circle', [p5, p6], { fixed: true, visible: false });
         var txt = board.create('text', [6.5, 2, "C"], { fontSize: 20, fixed: true });
 
         // Shade regions
@@ -82,21 +82,17 @@
         var i7 = board.create('curvedifference', [a3, a1], { visible: false });
         var sh7 = board.create('curvedifference', [i7, a2], { visible: v7, fillColor: 'yellow' });
         // Shading 8: not A and not B and not C
-        
-        var n1 = board.create('intersection',[a1,a2,0],{name:"n1",visible:false});       
-        var n2 = board.create('intersection',[a1,a3,0],{name:"n2",visible:true});
-        var n3 = board.create('intersection',[a2,a3,0],{name:"n3",visible:false});
-        var n4 = board.create('intersection',[a1,a2,1],{name:"n4",visible:true});
-        var n5 = board.create('intersection',[a1,a3,1],{name:"n5",visible:false});
-        var n6 = board.create('intersection',[a2,a3,1],{name:"n6",visible:true});
-        var arc1 = board.create('arc',[p1,n4,n2],{strokeWidth:4,strokeColor:'red',visible: true});
-        var arc2 = board.create('arc',[p3,n6,n4],{strokeWidth:4,strokeColor:'red',visible: true});
-        var arc3 = board.create('arc',[p5,n2,n6],{strokeWidth:4,strokeColor:'red',visible: true});
-        
         var v8 = true;
-        var v81 = board.create('curvedifference', [universe, arc1], { visible: false, fillColor: 'yellow' });
-        var v82 = board.create('curvedifference', [v81, arc2], { visible: true, fillColor: 'yellow' });
-       // var v81 = board.create('curvedifference', [v82, arc3], { visible: true, fillColor: 'yellow' });
+        var i81 = board.create('curveunion', [a1,a2], { visible: false});
+        var i82 = board.create('curveunion', [i81,a3], { visible: false});
+        var sh8 = board.create('curvedifference', [universe,i82], {visible: v8, fillColor: 'yellow'});
+
+
+
+
+
+
+
     </script>
 
 </body>

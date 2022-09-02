@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  </head>
+  <body>
+
+  <div id="jxgbox" class="jxgbox" style="width:300px; height:300px;"></div>
+
+  <script>
+    //change jxgbox to divid when autHoring in STACK
+    
+    // CONTROLS
+    
+    var backgroundColor = "white";
+    var highlightColor = "#ffef52";
+
+    var factorLabelsOn = true;
+    var factorAName = "A";
+    var factorBName = "B";
+    var factorCName = "C";
+    var factorFontSize = 18;
+
+    var highList = [false,true,false,false,false,false,false,false];   
+
+    // SCRIPT
+
+    JXG.Options.text.useMathJax=true;
+    var board = JXG.JSXGraph.initBoard('jxgbox', {
+      boundingbox: [-6, 6, 6, -6],
+      keepaspectratio:true,
+      showNavigation:false,
+      showCopyright:false,
+    });
+
+    var centerStyle = {
+      fixed:true,
+      visible:false
+    };
+    var centerA = board.create("point", [0,1.732], centerStyle);
+    var centerB = board.create("point", [-1.5,-0.866], centerStyle);
+    var centerC = board.create("point", [1.5,-0.866], centerStyle);
+
+    var circleStyle = {
+      fixed:true,
+      highlight:false,
+      strokeColor:"black",
+    };
+
+    var circleA = board.create("circle", [centerA,3], circleStyle);
+    var circleB = board.create("circle", [centerB,3], circleStyle);
+    var circleC = board.create("circle", [centerC,3], circleStyle);
+
+    var labelStyle = {
+      visible:factorLabelsOn,
+      fontSize:factorFontSize,
+      fixed:true,
+      highlight:false,
+      useMathJax:true,
+      parse:false,
+      anchorX:"middle",
+      anchorY:"middle"
+    };
+
+    var labelA = board.create("text",[-2.3,4.5,factorAName], labelStyle);
+    var labelB = board.create("text",[-3.6,-4,factorBName], labelStyle);
+    var labelC = board.create("text",[4.2,-4,factorCName], labelStyle);
+
+    var interStyle = {
+      visible:false,
+      fixed:true
+    };
+    var outerInterAB = board.create("intersection", [circleA, circleB, 0], interStyle);
+    var outerInterAC = board.create("intersection", [circleA, circleC, 1], interStyle);
+    var outerInterBC = board.create("intersection", [circleB, circleC, 0], interStyle);
+
+    var AnBnCfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:3
+    };
+
+    if (highList[7]) {
+      AnBnCfillStyle.fillColor = highlightColor;
+    } else {
+      AnBnCfillStyle.fillColor = backgroundColor;
+    };
+
+    board.create("sector", [centerC, centerA, centerB], AnBnCfillStyle);
+    board.create("sector", [centerA, centerB, centerC], AnBnCfillStyle);
+    board.create("sector", [centerB, centerC, centerA], AnBnCfillStyle);
+
+    var AnBfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:2
+    };
+
+    var AnCfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:2
+    };
+
+    var BnCfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:2
+    };
+
+    if (highList[4]) {
+      AnBfillStyle.fillColor = highlightColor;
+    } else {
+      AnBfillStyle.fillColor = backgroundColor;
+    };
+
+    if (highList[5]) {
+      AnCfillStyle.fillColor = highlightColor;
+    } else {
+      AnCfillStyle.fillColor = backgroundColor;
+    };
+
+    if (highList[6]) {
+      BnCfillStyle.fillColor = highlightColor;
+    } else {
+      BnCfillStyle.fillColor = backgroundColor;
+    };
+
+    board.create("sector", [centerA, outerInterAB, centerC], AnBfillStyle);
+    board.create("sector", [centerB, centerC, outerInterAB], AnBfillStyle);
+
+    board.create("sector", [centerC, outerInterAC, centerB], AnCfillStyle);
+    board.create("sector", [centerA, centerB, outerInterAC], AnCfillStyle);
+
+    board.create("sector", [centerB, outerInterBC, centerA], BnCfillStyle);
+    board.create("sector", [centerC, centerA, outerInterBC], BnCfillStyle);
+
+  var AfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:1
+    };
+
+    var BfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:1
+    };
+
+    var CfillStyle = {
+      fixed:true,
+      highlight:false,
+      strokeOpacity:0,
+      fillOpacity:1,
+      layer:1
+    };
+
+    if (highList[1]) {
+      AfillStyle.fillColor = highlightColor;
+    } else {
+      AfillStyle.fillColor = backgroundColor;
+    };
+
+    if (highList[2]) {
+      BfillStyle.fillColor = highlightColor;
+    } else {
+      BfillStyle.fillColor = backgroundColor;
+    };
+
+    if (highList[3]) {
+      CfillStyle.fillColor = highlightColor;
+    } else {
+      CfillStyle.fillColor = backgroundColor;
+    };
+
+    board.create("sector", [centerA, outerInterAC, outerInterAB], AfillStyle);
+    board.create("sector", [centerB, outerInterAB, outerInterBC], BfillStyle);
+    board.create("sector", [centerC, outerInterBC, outerInterAC], CfillStyle);
+
+    var backStyle = {
+      fixed:true,
+      highlight:false,
+      borders:{
+        fixed:true,
+        highlight:false,
+        strokeWidth:2,
+        strokeColor:"black"
+      },
+      vertices:{
+        fixed:true,
+        visible:false
+      },
+      fillOpacity:1,
+      layer:0
+    };
+
+    if (highList[0]) {
+      backStyle.fillColor = highlightColor;
+    } else {
+      backStyle.fillColor = backgroundColor;
+    }
+
+    var background = board.create("polygon", [[-5.2,5.8],[5.2,5.8],[5.2,-5.2],[-5.2,-5.2]], backStyle);
+
+
+
+
+
+  </script>
+
+  </body>
+</html>

@@ -59,12 +59,27 @@
             name: "p2",
             visible: false
         });
+
+        var shading = true;
+        if (shading == true) {shading_col = 'yellow'} else {shading_col = 'white'};
+
+        console.log('the variable shading is currently ', shading, ' and the circle should be ', shading_col)
+
         var a3 = board.create('circle', [p3, p4], {
+ //           needsRegularUpdate:true,
             hasInnerPoints: true,
+            fillColor: shading_col,
             fixed: true
         });
+
         a3.on('down', function () {
-            console.log('you just clicked on the bottom circle')
+            console.log('you just clicked on the bottom circle'),
+            shading = !shading,
+//            shading_col=shading_opt[0],
+//            if (shading == true) {shading_col = 'yellow'} else {shading_col = 'white'},
+//            shading_col = if (shading == true) {'yellow'} else {'white'},
+            console.log('the variable shading is currently ', shading, ' and the circle should be ', shading_col),
+            board.fullUpdate()
         });
 
     </script>

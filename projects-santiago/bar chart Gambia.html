@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+    <!--// You can define the width and height of your applet here -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+    <script>
+
+        var data = [[1, 8], [2, 5], [3, 3], [4, 0], [5, 0], [6, 2]]; /* STACK: input data here, [x,num(x)]*/
+
+        var i = 0;
+
+        var max_height = 0;
+
+        for (i = 0; i < data.length; i++) {
+            if (data[i][1] > max_height) {
+                max_height = data[i][1]
+            }
+        }
+
+        var board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [-0.5, max_height + 3, data.length + 1, -1],
+            keepaspectratio: false,
+            showCopyright: false,
+            axis: true,
+            showNavigation: false
+        });
+
+        for (i = 0; i < data.length; i++) {
+            board.create(
+                'polygon',
+                [
+                    [data[i][0] - 1 / 3, 0],
+                    [data[i][0] - 1 / 3, data[i][1]],
+                    [data[i][0] + 1 / 3, data[i][1]],
+                    [data[i][0] + 1 / 3, 0]
+                ], {
+                fixed: true,
+                vertices: { visible: false },
+                borders: { fixed: true }
+            })
+        };
+
+        var hor_label = board.create('text',[2,-0.5,"number of books at home"], {
+            fontsize: 18
+        });
+
+        var ver_label = board.create('text',[-0.25,2,"number of children"], {
+            fontsize: 18,
+            display: 'internal',
+            rotate: 90
+        });
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>JSXGraph template</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
     <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
         charset="UTF-8"></script>
@@ -20,8 +21,10 @@
         is the width -->
     <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
 
+
+    <!-- Start your jsxgraph here -->
     <script>
-        var board = JXG.JSXGraph.initBoard('jxgbox', {
+        var board = JXG.JSXGraph.initBoard('jxgbox', { // STACK: when moving to STACK change 'jxgboard' for divid
             boundingbox: [1, 7, 9, 1],
             keepaspectratio: true,
             showCopyright: false,
@@ -29,7 +32,7 @@
             showNavigation: true
         });
 
- 
+
 
 
     </script>

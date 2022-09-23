@@ -16,3 +16,4 @@ The version of JSXGraph used is defined in lines 9 and 10 in the template.
 * [JSXGraph wiki](https://jsxgraph.org/wiki/index.php/Main_Page) - Some guides and examples
 * [JSXGraph documentation](https://jsxgraph.uni-bayreuth.de/docs/) - Full description of all objects and functions in the library
 * [Google Group](https://groups.google.com/g/jsxgraph) - Community of developers and users where you can post questions
+* [Sample STACK Question](https://ecampus.idems.international/question/bank/history/history.php?entryid=67010&returnurl=%2Fquestion%2Fedit.php%3Fcourseid%3D72%26cat%3D3445%252C7256%26qpage%3D0&courseid=72) - A STACK example of a question with a JSXGraph

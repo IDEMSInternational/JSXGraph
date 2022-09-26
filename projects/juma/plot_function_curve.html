@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JSXGraph template</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript"
+    charset="UTF-8"></script>
+  <!-- The next line is optional: MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+  <!--// Define the width and height of your applet here -->
+  <div id="jxgbox" class="jxgbox" style="width:500px; height:500px;"></div>
+
+  <script>
+    // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
+    var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-5,7,5,-4],keepaspectratio:false,showCopyright:true, axis:true});
+    var graph = board.create('functiongraph', ["(x+2)*(x+1)*(x-1)*(x-2)"]);
+  </script>
+</body>
+
+</html>

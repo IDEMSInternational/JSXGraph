@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+    <!--// You can define the width and height of your applet here -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+    <script>
+        var board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [1, 7, 9, 1],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: false,
+            showNavigation: true
+        });
+
+        // Top diagram - clicking in the overlap
+        var p1 = board.create('point', [4, 6], {
+            name: "p1",
+            visible: false
+        });
+        var p2 = board.create('point', [5.5, 6], {
+            name: "p2",
+            visible: false
+        });
+        var a1 = board.create('circle', [p1, p2], {
+            hasInnerPoints: true,
+            fixed: true
+        });
+        var a2 = board.create('circle', [p2, p1], {
+            hasInnerPoints: true,
+            fixed: true
+        });
+        var c1 = board.create('curveintersection', [a1, a2], {
+            hasInnerPoints: false,
+            fillColor: 'yellow'
+        });
+        c1.on('down', function () {
+            console.log('you just clicked on the overlap between the two top circles')
+        });
+
+        // Bottom diagram - clicking in the circle
+        var p3 = board.create('point', [4, 2.5], {
+            name: "p1",
+            visible: false
+        });
+        var p4 = board.create('point', [5.5, 2.5], {
+            name: "p2",
+            visible: false
+        });
+        var a3 = board.create('circle', [p3, p4], {
+            hasInnerPoints: true,
+            fixed: true
+        });
+        a3.on('down', function () {
+            console.log('you just clicked on the bottom circle')
+        });
+
+    </script>
+
+
+
+
+</body>
+
+</html>

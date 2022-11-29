@@ -24,12 +24,16 @@
     <!-- Start your jsxgraph here -->
     <script>
         var board = JXG.JSXGraph.initBoard('jxgbox', { // STACK: when moving to STACK change 'jxgboard' for divid
-            boundingbox: [-1, 7, 9, -1],
+            boundingbox: [-5, 7, 9, -5],
             keepaspectratio: true,
             showCopyright: false,
             axis: true,
             showNavigation: true
         });
+        var graph1 = board.create('functiongraph', ['x^2-2', -4, 8],{name:'x^2-2', withLabel:true});
+        var p = board.create('point', [1,2],{name:"p"}, {size:5, color:"green",visible: false});
+        var q = board.create('point', [5,4],{name:"q"}, {size:5,face:'circle', color:"red",visible: false});
+        var line1 = board.create("line",[p,q]);
 
 
 

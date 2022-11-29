@@ -48,9 +48,6 @@
             // Copy all points from curve3
             this.dataX = this.dataX.concat(curve3.points.map(p => p.usrCoords[1]));
             this.dataY = this.dataY.concat(curve3.points.map(p => p.usrCoords[2]));
-            // Close the curve by adding (3,0)
-            this.dataX.push(3);
-            this.dataY.push(0);
             // Copy all points from curve4
             this.dataX = this.dataX.concat(curve4.points.map(p => p.usrCoords[1]).reverse());
             this.dataY = this.dataY.concat(curve4.points.map(p => p.usrCoords[2]).reverse());

@@ -27,19 +27,13 @@
             boundingbox: [-5, 5, 5, -5], axis: true
         });
 
-        // 1. step: compute intersection of 'sqrt(x^2-1)' and '0.707*x'
-        var diff = x => Math.sqrt(x * x - 1) - 0.707*x;
-        var x_intersect = JXG.Math.Numerics.root(diff, 1.5);
-
-        // 2. step: plot curves only up to the mutual intersections
-        // We use JessieCode for the function terms
+        // Plot curves only up to the mutual intersections
         var curve1 = board.create('functiongraph', ['(x+2)^2+1', -3, -1]);
         var curve2 = board.create('functiongraph', ['(x)^2+1', -1, 1]);
         var curve3 = board.create('functiongraph', ['(x-2)^2+1', 1, 3]);
         var curve4 = board.create('functiongraph', ['(x/3)^2-1', -3, 3]);
 
-        // 3. step: plot a filled curve which starts at (0,0), contains all points of 'sqrt(x^2-1)'
-        // and is closed by adding (0,0) at the end.
+        // Plot a filled curve which traces the outline.
         var curve = board.create('curve', [[], []], { strokeWidth: 3, fillColor: 'yellow', fillOpacity: 0.3 });
         curve.updateDataArray = function () {
             // Start with (-3, 0)
@@ -54,9 +48,6 @@
             // Copy all points from curve3
             this.dataX = this.dataX.concat(curve3.points.map(p => p.usrCoords[1]));
             this.dataY = this.dataY.concat(curve3.points.map(p => p.usrCoords[2]));
-            // Close the curve by adding (3,0)
-            this.dataX.push(3);
-            this.dataY.push(0);
             // Copy all points from curve4
             this.dataX = this.dataX.concat(curve4.points.map(p => p.usrCoords[1]).reverse());
             this.dataY = this.dataY.concat(curve4.points.map(p => p.usrCoords[2]).reverse());

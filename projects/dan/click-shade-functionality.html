@@ -28,7 +28,7 @@
 
         var circStyleInit = {
             fixed:true,
-            visible:false,
+            visible:true,
             highlight:true,
             strokeColor:'black',
             highlightStrokeColor:'black',
@@ -45,13 +45,13 @@
             if (circ.getAttribute('fillColor') == 'transparent'){
                 circ.setAttribute({
                     fillColor:'yellow',
-                })
+                });
             }
             else {
                 circ.setAttribute({
                     fillColor:'transparent',
-                })
-            };
+                });
+            }
         });
     
     </script>

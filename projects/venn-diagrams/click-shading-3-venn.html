@@ -105,8 +105,13 @@
         
         // Function taking a bounding curve and approximating an interior region with a polygon with lots of verticies
         // Efficiency could likely be increased by reducing the number of points used
+        function get_subset(currentValue, index, arr) {
+            if (index % 10) return false;
+            else return true;
+        }
+
         function approxRegion(curve) {
-            return board.create('polygon', curve.points.map(p => [p.usrCoords[1], p.usrCoords[2]]), detectorStyle);
+            return board.create('polygon', curve.points.filter(get_subset).map(p => [p.usrCoords[1], p.usrCoords[2]]), detectorStyle);
         };
         
         // Function to detect a click on a region "objectFill" and toggle the fill colour of another region "object"

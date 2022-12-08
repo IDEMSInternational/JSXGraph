@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.4/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.4/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!--// You can define the width and height of your applet here -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+    <script>
+        // [[jsxgraph input-ref-stateStore="stateRef"]]
+
+        // In STACK, at input as follows:
+        // <p style="display:none">[[input:stateStore]] [[validation:stateStore]]</p>
+        // Also see https://moodle.oulu.fi/question/type/stack/doc/doc.php/Authoring/JSXGraph.md
+
+        var board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [-5, 5, 5, -5],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: false,
+            showNavigation: true
+        });
+
+        var circStyleInit = {
+            fixed:true,
+            visible:true,
+            highlight:true,
+            strokeColor:'black',
+            highlightStrokeColor:'black',
+            fillColor:'transparent',
+            fillOpacity:1,
+            highlightFillColor:'yellow',
+            highlightFillOpacity:0.3,
+            hasInnerPoints:true,
+        };
+
+        function toggleShading(object, obj_id) {
+            object.on('down', function(){
+                if (state["choices"].includes(obj_id)){
+                    object.setAttribute({
+                        fillColor:'transparent',
+                    });
+                    // Remove the element from the list
+                    state["choices"] = state["choices"].filter(function(value) {return value != obj_id});
+                }
+                else {
+                    object.setAttribute({
+                        fillColor:'yellow',
+                    });
+                    // Add element to list
+                    state["choices"].push(obj_id);
+                }
+                // stateInput.value = JSON.stringify(state);
+            });
+        };
+
+        function initShading(object, obj_id) {
+            if (state["choices"].includes(obj_id)){
+                object.setAttribute({
+                    fillColor:'yellow',
+                });
+            }
+            else {
+                object.setAttribute({
+                    fillColor:'transparent',
+                });
+            }
+        }
+
+        var state = {choices:[2,3]};
+        // When in STACK, use this:
+        // var stateInput = document.getElementById(stateRef);
+        // if (stateInput.value && stateInput.value != '') {
+        //     state = JSON.parse(stateInput.value);
+        // }
+
+        var circ1 = board.create('circle', [[-2.5,0], 1], circStyleInit);
+        var circ2 = board.create('circle', [[0,0], 1], circStyleInit);
+        var circ3 = board.create('circle', [[2.5,0], 1], circStyleInit);
+
+        initShading(circ1, 1);
+        initShading(circ2, 2);
+        initShading(circ3, 3);
+
+        toggleShading(circ1, 1);
+        toggleShading(circ2, 2);
+        toggleShading(circ3, 3);
+
+
+    
+    </script>
+
+</body>
+
+</html>

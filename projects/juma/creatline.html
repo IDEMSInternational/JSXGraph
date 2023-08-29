@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JSXGraph template</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript"
+    charset="UTF-8"></script>
+  <!-- The next line is optional: MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+  <!--// Define the width and height of your applet here -->
+  <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+  <script>
+    // When moving this to STACK the 'jxgbox' should be replaced with 'divid'  
+    var board = JXG.JSXGraph.initBoard('jxgbox', {
+        boundingbox: [-8, 8, 9, 2],  
+        keepaspectratio: true, 
+        showCopyright: true, 
+        axis: true,
+        showNavigation:true
+    });
+    var p = board.create('point',[-2,1], {name:"P", size:5, color:"green"}); //create point with properties
+    var q = board.create('point',[3,0], {name:"q", size:5, color:"blue"});
+    var line1 = board.create("line",[p,q]);   // create line connecting points p and q
+
+    var r = board.create('point',[-3,3], {name:"R", size:5, color:"red"}); //create point with properties
+    var s = board.create('point',[5,-1], {name:"S", size:5, color:"black"});
+    var line2 = board.create("line",[r,s]);   // create line connecting points r and s
+  </script>
+  
+  </body>
+</html>

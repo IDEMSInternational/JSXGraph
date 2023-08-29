@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.6/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.6/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+
+    <!-- Start your jsxgraph here -->
+    <script>
+        const board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [-5, 5, 5, -5], axis: true
+        });
+
+        // Plot curves only up to the mutual intersections
+        var curve1 = board.create('functiongraph', ['(x+2)^2+1', -3, -1]);
+        var curve2 = board.create('functiongraph', ['(x)^2+1', -1, 1]);
+        var curve3 = board.create('functiongraph', ['(x-2)^2+1', 1, 3]);
+        var curve4 = board.create('functiongraph', ['(x/3)^2-1', -3, 3]);
+
+        // Plot a filled curve which traces the outline.
+        var curve = board.create('curve', [[], []], { strokeWidth: 3, fillColor: 'yellow', fillOpacity: 0.3 });
+        curve.updateDataArray = function () {
+            // Start with (-3, 0)
+            this.dataX = [-3];
+            this.dataY = [0];
+            // Copy all points from curve1
+            this.dataX = this.dataX.concat(curve1.points.map(p => p.usrCoords[1]));
+            this.dataY = this.dataY.concat(curve1.points.map(p => p.usrCoords[2]));
+            // Copy all points from curve2
+            this.dataX = this.dataX.concat(curve2.points.map(p => p.usrCoords[1]));
+            this.dataY = this.dataY.concat(curve2.points.map(p => p.usrCoords[2]));
+            // Copy all points from curve3
+            this.dataX = this.dataX.concat(curve3.points.map(p => p.usrCoords[1]));
+            this.dataY = this.dataY.concat(curve3.points.map(p => p.usrCoords[2]));
+            // Copy all points from curve4
+            this.dataX = this.dataX.concat(curve4.points.map(p => p.usrCoords[1]).reverse());
+            this.dataY = this.dataY.concat(curve4.points.map(p => p.usrCoords[2]).reverse());
+        };
+        board.update();
+    </script>
+
+</body>
+
+</html>

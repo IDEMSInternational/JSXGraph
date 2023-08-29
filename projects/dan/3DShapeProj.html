@@ -20,7 +20,7 @@
     var showOrientation = false;
     var zoom = 2;
     var cenOfView = [0,0];
-    var orientation = [0.26,0.52,0.13];
+    var orientation = [0,0,0];
 
     /* NOTE: 
     
@@ -34,11 +34,12 @@
     */
 
     // Creating JSXGraph board: change "jxgbox" to divid for STACK questions
+    JXG.Options.text.useMathJax=true;
     var board = JXG.JSXGraph.initBoard("jxgbox", {
       boundingBox:[cenOfView[0]-zoom, cenOfView[1]+zoom, cenOfView[0]+zoom, cenOfView[1]-zoom],
       showCopyright:false,
       showNavigation:false,
-    })
+    });
 
     // Function to project point in 3D onto a plane through the origin normal to [xN,yN,zN];
     function flatten_point([x,y,z]) {
@@ -88,7 +89,7 @@
     };
     
     // List containing all 3D elements to be displayed (used to update position for user movement)
-    elements = [];
+    var elements = [];
 
     //  CREATE AXES: print_axes(rotation, "xAxisCol", "yAxisCol", "zAxisCol", axisStyle)
     function print_axes(
@@ -103,7 +104,7 @@
         }) {
         
         // Creating points at unit distance along each axis
-        pointList = [
+        var pointList = [
             [0,0,0],
             [1,0,0],
             [0,1,0],
@@ -147,7 +148,7 @@
         pointStyle = {visible:false}) {
 
         // Define points on a cube before rotation, scaling and translation
-        pointList = [
+        var pointList = [
             [1,1,1],
             [1,1,-1],
             [1,-1,-1],
@@ -210,7 +211,7 @@
         pointStyle = {visible:false}) {
 
         // Define points on a cubeoid before rotation and translation
-        pointList = [
+        var pointList = [
             [sideLengthX/2,sideLengthY/2,sideLengthZ/2],
             [sideLengthX/2,sideLengthY/2,-sideLengthZ/2],
             [sideLengthX/2,-sideLengthY/2,-sideLengthZ/2],
@@ -271,7 +272,7 @@
         pointStyle = {visible:false}) {
 
         // Define points on an octahedron before rotation, scaling and translation
-        pointList = [
+        var pointList = [
             [1,0,0],
             [0,1,0],
             [0,0,1],
@@ -332,7 +333,7 @@
         pointStyle = {visible:false}) {
 
         // Define points on an octahedron before rotation, scaling and translation
-        pointList = [
+        var pointList = [
             [0,0,1],
             [0,2*Math.sqrt(2)/3,-1/3],
             [Math.sqrt(2/3),-Math.sqrt(2)/3,-1/3],
@@ -389,7 +390,7 @@
         pointStyle = {visible:false}) {
 
         // Define points on two n-gons before rotation and translation
-        pointList = [];
+        var pointList = [];
         var i;
         for (i = 0; i < noSides; i++) {
             pointList.push([
@@ -455,7 +456,7 @@
         },
         pointStyle = {visible:false}) {
 
-        pointList = [];
+        var pointList = [];
         
         // Create top point without rotation or translation
         pointList.push([0, 0, height]);
@@ -659,7 +660,7 @@
 
     };
 
-    // CREATE CIRCLE(radius, centre, rotation, faceStyle, pointStyle)
+    // CREATE CIRCLE: print_circle(radius, centre, rotation, faceStyle, pointStyle)
     function print_circle(
         radius = 1, 
         [x,y,z] = [0,0,0], 
@@ -677,7 +678,7 @@
         pointStyle = {visible:false}) {
         
         // Define points on a circle before rotation and translation
-        pointList = [
+        var pointList = [
             [radius,0,0],
             [radius*Math.sqrt(2)/2,radius*Math.sqrt(2)/2,0],
             [0,radius,0],
@@ -700,6 +701,48 @@
         // Print circle as a conic so that it will form an elipse under ro
         board.create("conic", pointList.map(function(point) {return point.proj}), faceStyle);
         
+    };
+
+    // CREATE SPHERE: print_sphere(radius, centre, faceStyle, lineStyle, pointStyle)
+    // (uses print_circle() function)
+    function print_sphere(
+        radius = 1, 
+        [x,y,z] = [0,0,0], 
+        faceStyle = {
+            fixed:true,
+            highlight:false,
+            fillColor:"#00FF00",
+            fillOpacity:0.3,
+            strokeWidth:1,
+            borders:{
+                fixed:true,
+                highlight:false
+            }
+        },
+        lineStyle = {
+            fixed:true,
+            highlight:false,
+            fillColor:"none",
+            borders:{
+                fixed:true,
+                highlight:false
+            }
+        },
+        pointStyle = {visible:false}) {
+
+        var i;
+        for (i = 0; i < 6; i++) {
+            print_circle(radius, [x,y,z], [
+                Math.PI/2,
+                Math.PI/2,
+                Math.PI*i/6
+            ], lineStyle);
+        };
+
+        circCen = make_point([x,y,z], pointStyle);
+
+        board.create("circle", [circCen.proj, radius], faceStyle);
+
     };
 
     // DISPLAYING ORIENTATION:
@@ -945,6 +988,9 @@
         board.create("segment", [pEg1.proj, pEg2.proj]);
     
     */
+
+    print_octa(1, [0,0,0], [0.5, 0.5, 0.5])
+
 
   </script>
 

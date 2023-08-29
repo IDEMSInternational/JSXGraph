@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!--// You can define the width and height of your applet here -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+    <script>
+        
+        // Setting up board
+        
+        var board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [-5, 5, 5, -5],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: false,
+            showNavigation: true
+        });
+
+        // Stylings
+        
+        var boxStyle = {
+            fixed:true,
+            highlight:false,
+            fillColor:'white',
+            opacity:1,
+            borders:{
+                strokeColor:'black',
+                strokeWidth:2,
+                highlight:false
+            },
+            vertices:{
+                fixed:true,
+                visible:false
+            },
+            hasInnerPoints:true,
+            layer:1
+        };
+
+        var circleStyle = {
+            fixed:true,
+            visible:true,
+            highlight:false,
+            fillColor:'white',
+            opacity:1,
+            strokeColor:'transparent',
+            layer:2
+        };
+
+        var textStyle = {
+            fixed:true,
+            highlight:false,
+            fontSize:30,
+            anchorX:'middle',
+            anchorY:'middle',
+            parse:true,
+            useKatex:true,
+            layer:2
+        };
+
+        var staticInterStyle = {
+            visible:true,
+            fixed:true,
+            highlight:false,
+            fillColor:'white',
+            opacity:1,
+            strokeColor:'black',
+            strokeWidth:2,
+            layer:3
+        };
+
+        var detectorStyle = {
+            fixed:true,
+            visible:true,
+            highlight:false,
+            fillColor:'white',
+            opacity:0,
+            vertices:{
+                fixed:true,
+                visible:false
+            },
+            borders:{
+                fixed:true,
+                visible:false
+            },
+            hasInnerPoints:true,
+            layer:5
+        };
+
+        // Functions
+        
+        // Function taking a bounding curve and approximating an interior region with a polygon with lots of verticies
+        // Efficiency could likely be increased by reducing the number of points used
+        function get_subset(currentValue, index, arr) {
+            if (index % 10) return false;
+            else return true;
+        }
+
+        function approxRegion(curve) {
+            return board.create('polygon', curve.points.filter(get_subset).map(p => [p.usrCoords[1], p.usrCoords[2]]), detectorStyle);
+        };
+        
+        // Function to detect a click on a region "objectFill" and toggle the fill colour of another region "object"
+        function toggleShading(objectFill, object) {
+            
+            // detecting the click
+            objectFill.on('down', function(){
+            
+                // toggling unselected to selected
+                if (object.getAttribute('fillColor') == 'white'){
+                    object.setAttribute({
+                        fillColor:'#CE7AFF',
+                    })
+                }
+                // toggling selected to unselected
+                else {
+                    object.setAttribute({
+                        fillColor:'white',
+                    })
+                };
+            });
+        };
+
+        // Create universe box and label
+        
+        var universe = board.create('polygon', [[-4, -4], [4, -4], [4, 4], [-4, 4]], boxStyle);
+        var txt = board.create('text', [-3.4, 3.3, "\\(U\\)"], textStyle);
+
+        // Create three circles and labels
+        
+        var circA = board.create('circle', [[-0.866, 0.5], 2], circleStyle);
+        var txtA = board.create('text', [-3, 2, "\\(A\\)"], textStyle);
+        var circB = board.create('circle', [[0.866, 0.5], 2], circleStyle);
+        var txtB = board.create('text', [3, 2, "\\(B\\)"], textStyle);
+        var circC = board.create('circle', [[0, -1], 2], circleStyle);
+        var txtC = board.create('text', [1.8, -3, "\\(C\\)"], textStyle);
+
+        // Creating static invisible intersections
+        // These are not funcitonal but useful intermediate steps to creating the interactive regions
+        
+        var AnB = board.create('curveintersection', [circA, circB], {visible:false});
+        var BnC = board.create('curveintersection', [circB, circC], {visible:false});
+        var AnC = board.create('curveintersection', [circA, circC], {visible:false});
+        var AnotB = board.create('curvedifference', [circA, circB], {visible:false});
+        var BnotC = board.create('curvedifference', [circB, circC], {visible:false});
+        var CnotA = board.create('curvedifference', [circC, circA], {visible:false});
+        var AuB = board.create('curveunion', [circA, circB], {visible:false});
+        var AuBuC = board.create('curveunion', [AuB, circC], {visible:false});
+
+        // Creating intersections with dynamic shading
+        // These are the regions which actually change colour
+        
+        var AnBnC = board.create('curveintersection', [AnB, circC], staticInterStyle);
+        var AnBonly = board.create('curvedifference', [AnB, circC], staticInterStyle);
+        var BnConly = board.create('curvedifference', [BnC, circA], staticInterStyle);
+        var AnConly = board.create('curvedifference', [AnC, circB], staticInterStyle);
+        var Aonly = board.create('curvedifference', [AnotB, circC], staticInterStyle);
+        var Bonly = board.create('curvedifference', [BnotC, circA], staticInterStyle);
+        var Conly = board.create('curvedifference', [CnotA, circB], staticInterStyle);
+
+        // Creating click detection regions
+        // These regions are invisible, but detect the clicks of the user on the regions (or region approximations)
+        
+        // A n B n C
+        var AnBnCFill = approxRegion(AnBnC);
+        // A n B n C'
+        var AnBonlyFill = approxRegion(AnBonly);
+        // A n B' n C
+        var BnConlyFill = approxRegion(BnConly);
+        // A n B' n C
+        var AnConlyFill = approxRegion(AnConly);
+        // A n B' n C'
+        var AonlyFill = approxRegion(Aonly);
+        // A' n B n C'
+        var BonlyFill = approxRegion(Bonly);
+        // A' n B' n C
+        var ConlyFill = approxRegion(Conly);
+        // A' n B' n C'
+        var AuBuCFill = approxRegion(AuBuC);
+        var AuBuCPoints = AuBuCFill.vertices.map(p => [p.coords.usrCoords[1], p.coords.usrCoords[2]]);
+        var boxFill = board.create('polygon', [[-4,-4], [-4,4], [4,4], [4,-4], [-4,-4]].concat(AuBuCPoints, [[-4,-4]]), detectorStyle);
+
+        // Functionality to toggle region when detector is clicked
+        // Function detects click on the first argument and changes the colour of the second
+        
+        toggleShading(AnBnCFill, AnBnC);
+        toggleShading(AnBonlyFill, AnBonly);
+        toggleShading(BnConlyFill, BnConly);
+        toggleShading(AnConlyFill, AnConly);
+        toggleShading(AonlyFill, Aonly);
+        toggleShading(BonlyFill, Bonly);
+        toggleShading(ConlyFill, Conly);
+        toggleShading(boxFill, universe);
+
+    </script>
+
+</body>
+
+</html>

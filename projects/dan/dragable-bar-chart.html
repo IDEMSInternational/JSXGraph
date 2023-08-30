@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+
+    <!-- Start your jsxgraph here -->
+    <script>
+
+        // AUTHOR SPECS
+
+        // Boundaries for the axis of the graph
+        var xRange = [-1, 10]
+        var yRange = [-1, 11]
+
+        // List of any functions to be plotted in the form
+        // [*parametric y*, *parametric x*, *label* (optional)]
+        var funcPlots = [
+            [function(y){return y}, function(x){return (1/2)*x+5}]
+        ]
+        
+        var barBounds = [0, 2, 4, 6, 8, 10]
+
+        // SCRIPT
+
+        var board = JXG.JSXGraph.initBoard('jxgbox', { // STACK: when moving to STACK change 'jxgboard' for divid
+            boundingbox: [xRange[0], yRange[1], xRange[1], yRange[0]],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: true,
+            showNavigation: false
+        });
+
+        var funcStyle = {
+            fixed:true,
+            highlight:false,
+            width:2,
+            color:"black"
+        }
+
+        var boxStyle = {
+            fixed:true,
+            highlight:false,
+            fillColor:"teal",
+            borders:{fixed:true, highlight:false},
+            vertices:{fixed:true, visible:false}
+        }
+
+        var pointStyle = {
+            snapToGrid:true
+        }
+
+        for (func of funcPlots) {
+            board.create("curve", [
+                funcPlots[0][0],
+                funcPlots[0][1]
+            ], funcStyle)
+        }
+
+        var gliderLines = []
+        var gliderPoints = []
+
+        var xAxis = board.create("line", [[0,0],[0,1]], {fixed:true, visible:false})
+        var yAxis = board.create("line", [[0,0],[1,0]], {fixed:true, visible:false})
+        var horizontals = []
+        var verticals = []
+        
+        var intersections = []
+        var boxes = []
+
+        for (i in barBounds.slice(1)) {
+            i = Number(i)
+
+            gliderLines = gliderLines.concat(
+                board.create("segment", [
+                    [(barBounds[i] + barBounds[i+1])/2, yRange[0]],
+                    [(barBounds[i] + barBounds[i+1])/2, yRange[1]]
+                ], {fixed:true, visible:false})
+            )
+
+            gliderPoints = gliderPoints.concat(
+                board.create("glider", [
+                    (barBounds[i] + barBounds[i+1])/2, 0, gliderLines[i]
+                ], {snapToGrid:true, withLabel:false, showInfobox:false})
+            )
+
+            horizontals = horizontals.concat(
+                board.create("parallel", [
+                    gliderPoints[i],
+                    yAxis
+                ], {fixed:true, visible:false})
+            )
+
+            verticals = verticals.concat([[
+                board.create("parallel", [
+                    [barBounds[i], 0],
+                    xAxis
+                ], {fixed:true, visible:false}),
+                board.create("parallel", [
+                    [barBounds[i+1], 0],
+                    xAxis
+                ], {fixed:true, visible:false})
+            ]])
+
+            console.log(verticals[i])
+
+            intersections = intersections.concat([[
+                board.create("intersection", [
+                    verticals[i][0], horizontals[i], 0], {fixed:true, visible:false}),
+                board.create("intersection", [
+                    verticals[i][1], horizontals[i], 0], {fixed:true, visible:false})
+            ]])
+
+            boxes = boxes.concat(
+                board.create("polygon", [
+                    [barBounds[i], 0],
+                    [barBounds[i+1], 0],
+                    intersections[i][1],
+                    intersections[i][0]
+                ], boxStyle)
+            )
+        }
+
+    </script>
+
+</body>
+
+</html>

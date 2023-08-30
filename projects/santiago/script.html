@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+
+<p>{@char_name@} wants advise on what variety to plant.</p>
+
+<p>[[input:ans1]] [[validation:ans1]] [[feedback:prt1]]</p>
+
+<p>Would you like to ask {@char_name@} a question?</p>
+
+<button id="yny" type="button" style="font-size:16px;" onclick="reveal('questions');answer_true('2');">
+    Yes
+</button>
+<button id=ynn type="button" style="font-size:16px;" onclick="hide('questions');answer_false('2');">
+    No
+</button> 
+
+<div id="section_questions" style="display:none;">
+    <p id="input2" style="display:none;">[[input:ans2]] [[validation:ans2]]</p>
+   
+    <p>What would you like to ask?</p>
+
+    <button type="button" style="font-size:16px; width: 100%;" onclick="change('q1');answer_change('3');">
+        <p>{@q_and_a_list[1][1]@}</p>
+    </button>
+
+    <div id="section_q1" style="display:none;">
+        <p id="input3" style="display:none;">[[input:ans3]] [[validation:ans3]]</p>
+
+        <p>Answer: {@q_and_a_list[1][2]@}</p>
+    </div>
+
+    <br>
+
+    <button type="button" style="font-size:16px; width: 100%;" onclick="change('q2');answer_change('4');">
+        <p>{@q_and_a_list[2][1]@}</p>
+    </button>
+
+    <div id="section_q2" style="display:none;">
+        <p id="input4" style="display:none;">[[input:ans4]] [[validation:ans4]]</p>
+        <p>Answer: {@q_and_a_list[2][2]@}</p>
+    </div>
+
+    <br>
+
+    <button type="button" style="font-size:16px; width: 100%;" onclick="change('q3');answer_change('5');">
+        <p id="input5" style="display:none;">[[input:ans5]] [[validation:ans5]]</p>
+        <p>{@q_and_a_list[3][1]@}</p>
+    </button>
+
+    <div id="section_q3" style="display:none;">
+        <p>Answer: {@q_and_a_list[3][2]@}</p>
+    </div>
+
+    <br>
+
+    <button type="button" style="font-size:16px; width: 100%;" onclick="change('q4');answer_change('6');">
+        <p id="input6" style="display:none;">[[input:ans6]] [[validation:ans6]]</p>
+        <p>{@q_and_a_list[4][1]@}</p>
+    </button>
+
+    <div id="section_q4" style="display:none;">
+        <p>Answer: {@q_and_a_list[4][2]@}</p>
+    </div>
+
+    <br>
+
+    <button type="button" style="font-size:16px; width: 100%;" onclick="change('q5');answer_change('7');">
+        <p id="input7" style="display:none;">[[input:ans7]] [[validation:ans7]]</p>
+        <p>{@q_and_a_list[5][1]@}</p>
+    </button>
+
+    <div id="section_q5" style="display:none;">
+        <p>Answer: {@q_and_a_list[5][2]@}</p>
+    </div>
+
+    <br>
+
+    <button type="button" style="font-size:16px; width: 100%;" onclick="change('q6');answer_change('8');">
+        <p id="input8" style="display:none;">[[input:ans8]] [[validation:ans8]]</p>
+        <p>{@q_and_a_list[6][1]@}</p>
+    </button>
+
+    <div id="section_q6" style="display:none;">
+        <p>Answer: {@q_and_a_list[6][2]@}</p>
+    </div>
+
+    <br>
+
+    <button type="button" style="font-size:16px; width: 100%;" onclick="change('q7');answer_change('9');">
+        <p id="input9" style="display:none;">[[input:ans9]] [[validation:ans9]]</p>
+        <p>{@q_and_a_list[7][1]@}</p>
+    </button>
+
+    <div id="section_q7" style="display:none;">
+        <p>Answer: {@q_and_a_list[7][2]@}</p>
+    </div>
+
+</div>
+
+<p>[[feedback:prt2]]</p>
+
+
+
+<script>
+    function reveal(s) {
+        document.querySelector("#section_" + s).style.display = "block";
+        document.querySelector("#yny").style["font-size"] = "18px";
+        document.querySelector("#ynn").style["font-size"] = "16px";
+    }
+
+    function hide(s) {
+        document.querySelector("#section_" + s).style.display = "none";
+        document.querySelector("#ynn").style["font-size"] = "18px";
+        document.querySelector("#yny").style["font-size"] = "16px";
+
+    }
+
+    function change(s) {
+        if (document.querySelector("#section_" + s).style.display == "none") {
+            document.querySelector("#section_" + s).style.display = "block"
+        } else {
+            document.querySelector("#section_" + s).style.display = "none"
+        };
+    }
+
+    function answer_true(s) {
+        document.querySelector("#input" + s).querySelector("input").value = "true";
+    }
+
+    function answer_false(s) {
+        document.querySelector("#input" + s).querySelector("input").value = "false";
+    }
+
+    function answer_change(s) {
+        if (document.querySelector("#input" + s).querySelector("input").value == "true") {
+            document.querySelector("#input" + s).querySelector("input").value = "false";
+        } else {
+            document.querySelector("#input" + s).querySelector("input").value = "true";
+        };
+    }
+            
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

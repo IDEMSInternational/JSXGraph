@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.4/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.4/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!--// You can define the width and height of your applet here -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+    <script>
+        var board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [-5, 5, 5, -5],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: false,
+            showNavigation: true
+        });
+
+        var circStyleInit = {
+            fixed:true,
+            visible:true,
+            highlight:true,
+            strokeColor:'black',
+            highlightStrokeColor:'black',
+            fillColor:'transparent',
+            fillOpacity:1,
+            highlightFillColor:'yellow',
+            highlightFillOpacity:0.3,
+            hasInnerPoints:true,
+        };
+
+        var circ = board.create('circle', [[0,0], 1], circStyleInit);
+
+        circ.on('down', function(){
+            if (circ.getAttribute('fillColor') == 'transparent'){
+                circ.setAttribute({
+                    fillColor:'yellow',
+                });
+            }
+            else {
+                circ.setAttribute({
+                    fillColor:'transparent',
+                });
+            }
+        });
+    
+    </script>
+
+</body>
+
+</html>

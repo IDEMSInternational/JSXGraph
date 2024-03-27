@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  </head>
+  <body>
+
+  <div id="jxgbox" class="jxgbox" style="width:500px; height:500px;"></div>
+
+  <script>
+    var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-5, 4, 5, -4]});
+    var A = board.create('point', [-2,1]);
+    var B = board.create('point', [2, 1.5]);
+    var C = board.create('point', [3, -3]);
+    
+    //Construction of triangle
+    var seg1 = board.create('segment', [A, B]);
+    var seg2 = board.create('segment', [A, C]);
+    var seg3 = board.create('segment', [C, B]);
+
+    //Construction of orthocentre H
+    var perp1 = board.create('perpendicular', [seg1, C], {dash:"6"});
+    var perp2 = board.create('perpendicular', [seg2, B], {dash:"1"});
+    var perp3 = board.create('perpendicular', [seg3, A], {dash:"2"});
+    var H = board.create('intersection', [perp1, perp2, perp3], {name:"H"});
+
+    // Construction of midpoint
+    var emptypt = {name:""}
+    var midpt1 = board.create('midpoint', [A, B], emptypt);  
+    var midpt2 = board.create('midpoint', [C, B], emptypt);
+    var midpt3 = board.create('midpoint', [C, A], emptypt);
+
+    // Centre of gravity
+    var segstyle = {dash:"2", strokewidth:"1", strokeColor:'#12AD2B'};
+    var seg4 = board.create('segment', [midpt1, C], segstyle);
+    var seg5 = board.create('segment', [midpt2, A], segstyle);
+    var seg6 = board.create('segment', [midpt3, B], segstyle);
+    var gravpt = board.create('intersection', [seg4, seg5, seg6], {name:"G"});
+
+    // Construction of the point G, centre of circle
+    var segstyle = {dash:"2", strokewidth:"1", strokeColor:'#12AD2B'};
+    var per1 = board.create('perpendicular', [seg1, midpt1], segstyle);
+    var per2 = board.create('perpendicular', [seg2, midpt3], segstyle);
+    var per3 = board.create('perpendicular', [seg3, midpt2], segstyle);
+    var pt_O = board.create('intersection', [per1, per2, per3], {name:"O"});
+
+    //Circle of centre O and radius OA
+    var circ1 = board.create('circle', [pt_O, B], {strokeColor:"red", strokewidth:4});
+    
+  </script>
+  </script>
+
+  </body>
+</html>

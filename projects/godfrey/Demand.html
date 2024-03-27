@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph for Oligopoly Market</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/1.2.1/jsxgraphcore.js"></script>
+</head>
+<body>
+    <div id="box" class="jxgbox" style="width:400px; height:400px;"></div>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var board = JXG.JSXGraph.initBoard('box', {
+                boundingbox: [-30, 120, 120, -30],
+                axis: true,
+                showNavigation: false,
+                keepAspectRatio: true
+            });
+
+            // Create Demand Curves
+            var demand1 = board.create('functiongraph', [function (Q) { return 120 - Q; }]);
+            var demand2 = board.create('functiongraph', [function (Q) { return 80 - Q; }]);
+
+            // Create Cost Curves for Firm A and Firm B
+            //var costA = board.create('functiongraph', [function (Q) { return 20 * Q; }]);
+            //var costB = board.create('functiongraph', [function (Q) { return 30 * Q; }]);
+
+            // Create Drag Me Gliders for Demand Curves
+            var gliderDemand1 = board.create('glider', [60, 60, demand1]);
+            var gliderDemand2 = board.create('glider', [60, 60, demand2]);
+
+            // Create Slider for Cost Curve of Firm A
+            var sliderCostA = board.create('slider', [[30, 110], [80, 110], [0, 10, 100]], { name: 'Cost A' });
+
+            // Create Slider for Cost Curve of Firm B
+            var sliderCostB = board.create('slider', [[30, 100], [80, 100], [0, 10, 100]], { name: 'Cost B' });
+
+            // Update Demand Curves
+            board.on('update', function() {
+                var a = sliderCostA.Value();
+                var b = sliderCostB.Value();
+                demand1.Y = function (Q) { return 120 - Q - a; };
+                demand2.Y = function (Q) { return 80 - Q - b; };
+                board.update();
+            });
+
+            // Find and Display Cournot Equilibrium Quantity and Price
+            var equilibriumQuantity1 = board.create('intersection', [demand1, costA, costB], { visible: false });
+            var Q_A1 = equilibriumQuantity1[0].X();
+            var Q_B1 = equilibriumQuantity1[0].Y();
+            var P1 = 120 - Q_A1 - Q_B1;
+
+            var equilibriumQuantity2 = board.create('intersection', [demand2, costA, costB], { visible: false });
+            var Q_A2 = equilibriumQuantity2[0].X();
+            var Q_B2 = equilibriumQuantity2[0].Y();
+            var P2 = 80 - Q_A2 - Q_B2;
+
+            // Display the Cournot Equilibrium Quantity and Price
+            board.create('text', [30, 80, 'Cournot Equilibrium Quantity for Firm A (Q_A1): ' + Q_A1.toFixed(2)], { fontSize: 12 });
+            board.create('text', [30, 60, 'Cournot Equilibrium Quantity for Firm B (Q_B1): ' + Q_B1.toFixed(2)], { fontSize: 12 });
+            board.create('text', [30, 40, 'Cournot Equilibrium Price (P1): ' + P1.toFixed(2)], { fontSize: 12 });
+            board.create('text', [30, 20, 'Cournot Equilibrium Quantity for Firm A (Q_A2): ' + Q_A2.toFixed(2)], { fontSize: 12 });
+            board.create('text', [30, 0, 'Cournot Equilibrium Quantity for Firm B (Q_B2): ' + Q_B2.toFixed(2)], { fontSize: 12 });
+            board.create('text', [30, -20, 'Cournot Equilibrium Price (P2): ' + P2.toFixed(2)], { fontSize: 12 });
+        };
+    </script>
+</body>
+</html>

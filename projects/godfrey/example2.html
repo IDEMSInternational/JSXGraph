@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  </head>
+  <body>
+    <div id="jxgbox" class="jxgbox" style="width:500px; height:500px;"></div>
+<script>
+ var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-3, 3, 3, -3],keepAspectRatio:true, showCopyright:false, showNavigation:false });
+ var r = board.create('slider',[[-2,-2],[2,-2],[0,1,2]],{name:'r'});
+ var A = board.create('point',[0,0.5], {visible:false});
+ var button1 = board.create('button', [-2, -2.3, 'Start increasing',function(){r.startAnimation(1, 40, 30)}]);
+ var button2 = board.create('button', [-2, -2.6, 'Start decreasing',function(){r.startAnimation(-1, 10, 100)}]);
+ var button3 = board.create('button', [0.5, -2.5, 'Stop animation',function(){r.stopAnimation()}]);
+ var c = board.create('circle',['A',function(){return r.Value();}]);
+</script>
+</script>
+
+  </body>
+</html>

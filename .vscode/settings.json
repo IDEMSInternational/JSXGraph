@@ -1,3 +1,6 @@
 {
-    "git.autoStash": true
+    "git.autoStash": true,
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "main"
+    ]
 }

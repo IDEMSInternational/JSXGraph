@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+
+    <!-- Start your jsxgraph here -->
+    <script>
+        var board = JXG.JSXGraph.initBoard('jxgbox', { // STACK: when moving to STACK change 'jxgboard' for divid
+            boundingbox: [-5, 7, 9, -5],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: true,
+            showNavigation: true
+        });
+        //circles
+        var p = board.create('point',[-1,-1],{name:"A"});
+        var q = board.create('point',[0,0],{name:"B"});
+        var circle1 = board.create("circle",[p,q],{strokeColor:"red", strokeWidth:4});
+        var circle2 = board.create("circle",["B",1.8],{method:"pointRadius", fillColor:"gray",fillOpacity:0.2});
+         //polygons
+        var p = board.create('point',[4,0],{name:"A"});
+        var q = board.create('point',[4,2],{name:"B"});
+        var r = board.create('point',[7,3.5],{name:"C"});
+        var s = board.create('point',[8,2],{name:"D"});
+        var t = board.create('point',[6,-1],{name:"E"});
+
+        var poly1 = board.create('polygon',[p,q,r,s,t],{name:"Polygon 1",withLabel:true});
+
+        var points = [[2,-1],[4,1],[1,1],[-1,-1]];
+        var poly2 = board.create('polygon',points,{name:"Polygon 2",withLabel:true,
+                  hasInnerPoints:true, withLines:false, vertices:{visible:false}});
+        //more examples
+        var A = board.create('point' , [-1.2,-2], {color:  'orange' , size: 4 });
+        var B = board.create('point',  [0.25,-0.5], {color:  'orange' , size: 4 });
+        var hexagon = board.create('regularpolygon', [A,B, 6]);
+        var D = hexagon.vertices[3];
+        var Q = board.create('circumcenter',  [A, B, D], {name:'Q'});
+        var G = board.create('point', [3,-2],  {name: 'G', color: 'orange' , size: 4 });
+        var rtr = board.create('regularpolygon',  [B, G, 3]);
+        var H = rtr.vertices[2];
+        var R = board.create('circumcenter',  [B, G, H], {name: 'R'});
+        var tr = board.create('polygon',  [A, G, B], {color: 'pink'});
+        var P = board.create('midpoint', [A, G], {name: 'P'});
+        var q = board.create('line', [P, Q], {name: 'q', withLabel: true});
+        var r = board.create('line', [P, R], {name: 'r', withLabel: true});
+        var angle = board.create('angle', [R, P, Q], {radius: 0.4, color: 'red', fillOpacity: 0 , name:'&varphi;' });
+            board.create('text', [-3, -3,function () {return '&theta;_1 = ' + (arc2.Value() * 180 /Math.PI).toFixed(1) + '&deg;';}
+                ]);  
+     //angles and intersection
+        var p = board.create('point',[-2,0],{name:"A"});
+        var q = board.create('point',[1,1.5],{name:"B"});
+        var r = board.create('point',[1,-1],{name:"C"});
+        var line1 = board.create('line',[p,q]);
+        var line2 = board.create('line',[p,r]);
+        var angle1 = board.create('angle',["C", "A", "B"], {radius:2});
+        var angle2 = board.create('angle',[line2,line1,-1,-1], {radius:1,color:'pink'});
+        var angle3 = board.create('angle',[line2,line1,1,1], {radius:1,color:'red'});                             
+    </script>
+
+</body>
+
+</html>

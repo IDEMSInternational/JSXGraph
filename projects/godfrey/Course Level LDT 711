@@ -1,0 +1,265 @@
+<div class="jumbotron jumbotron-fluid text-white shadow" style="background: linear-gradient(to top,  var(--secondary), var(--primary),var(--info)); color:white; padding:1em; margin-bottom:1em; ">
+    <h5><br></h5>
+    <div class="container">
+        <p><span id="label_content_504745">This section provides summary of useful links to resources and activities for your quick actions and course progression.<br></span></p>
+        <p></p>
+        <div class="card-deck rounded">
+            <div class="card bg-white text-dark shadow   border-0">
+                <div class="card-img-top bg-info  d-flex align-items-center text-white">
+                    <i class="fa fa-link fa-5x m-auto p-5" aria-hidden="true"></i>
+                </div>
+                <div class="card-img-top bg-primary  d-flex align-items-center text-white"></div>
+                <div class="card-body">
+                    <h4 class="card-title" style="text-align: center;"><u>Student Hand Book</u></h4>
+                    <p class="card-text">Please refer to the student handbook for assessment guidelines and support services.<br></p>
+                </div>
+                <div class="card-footer"><a class="btn btn-primary btn-lg" href="https://ouk.ac.ke/wp-content/uploads/2023/07/StudentHandBook-OUK.pdf" role="button" style="justify-content: center; display:flex;"><i class="fa fa-youtube-play" aria-hidden="true"></i> File</a></div>
+            </div>
+            <div class="card bg-white text-dark shadow border-0">
+                <div class="card-img-top bg-info  d-flex align-items-center text-white">
+                    <i class="fa fa-gamepad fa-5x m-auto p-5" aria-hidden="true"></i>
+                </div>
+                <div class="card-img-top bg-primary d-flex align-items-center text-white"></div>
+                <div class="card-body">
+                    <h4 class="card-title" style="text-align: center;"><u>Communication Corner</u><br></h4>
+                    <p class="card-text">General news, announcements and space to have your say. <br></p>
+                </div>
+                <div class="card-footer"><a class="btn btn-primary btn-lg" href="#" role="button" style="justify-content: center; display:flex;"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</a></div>
+            </div>
+            <div class="card bg-white text-dark shadow border-0">
+                <div class="card-img-top bg-info  d-flex align-items-center text-white">
+                    <i class="fa fa-file-text fa-5x m-auto p-5" aria-hidden="true"></i>
+                </div>
+                <div class="card-img-top bg-primary d-flex align-items-center text-white"></div>
+                <div class="card-body">
+                    <h4 class="card-title" style="text-align: center;"><u>Learning Guide</u></h4>
+                    <p class="card-text">Specific resources are available here for you to view/download within each relevant area of the course.<br></p>
+                </div>
+                <div class="card-footer"><a class="btn btn-primary btn-lg" href="https://somas.ouk.ac.ke/mod/page/view.php?id=88458" role="button" style="justify-content: center; display:flex;"><i class="fa fa-download" aria-hidden="true"></i> Learn</a></div>
+            </div>
+        </div>
+    </div>
+    <p></p>
+</div>
+<div>
+    <br>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Course1')">Course Description</button>
+        <button class="tablinks" onclick="openCity(event, 'Course2')">Course Content</button>
+        <button class="tablinks" onclick="openCity(event, 'Course3')">Course Modules</button>
+    </div>
+
+    <div id="Course1" class="dstabcontent open">
+        <div class="myrow">
+            <div class="mycolumn c-left">
+                <i class="fa fa-anchor"></i>
+            </div>
+            <div class="mycolumn c-right" style="background-color:#bbb;">
+                <h5 style="font-size:4px;">&nbsp;</h5>
+                <h4>Course Purpose</h4>
+            </div>
+        </div>
+        <!-- Course Purpose to be written down here -->
+        <br>
+        <p>This course aims to provide learners with a comprehensive understanding of instructional design principles, models, and frameworks, as well as historical and current trends and issues in learning design and technologies.</p>
+        <br>
+        <div class="myrow">
+            <div class="mycolumn c-left">
+                <i class="fa fa-line-chart"></i>
+            </div>
+            <div class="mycolumn c-right" style="background-color:#bbb;">
+                <h5 style="font-size:4px;">&nbsp;</h5>
+                <h4>Course Objectives</h4>
+            </div>
+        </div>
+        <!-- Course Objectives are to be written down here -->
+        <p>This course seeks to facilitate learning about:</p><b style="font-family: inherit; font-size: 1rem; letter-spacing: 0rem; text-transform: inherit;">
+            <ol>
+
+                <li>Current and future trends in educational technology</li>
+                <li>Classic and contemporary theories of learning and their applications in educational technology</li>
+                <li>Emerging technologies to support teaching and learning.</li>
+                <li>Use innovative technologies to facilitate and inspire learning and creativity.</li>
+            </ol>
+        </b>
+        <p>&nbsp;</p>
+        <div class="myrow">
+            <div class="mycolumn c-left">
+                <i class="fa fa-key"></i>
+            </div>
+            <div class="mycolumn c-right" style="background-color:#bbb;">
+                <h5 style="font-size:4px;">&nbsp;</h5>
+                <h4>Course Learning Outcomes</h4>
+            </div>
+        </div>
+        <p> By the end of the course, you should be able to:<br></p>
+        <!-- Course Learning Outcomes to be written down here -->
+        <br>
+        <p><b>1. </b>Recognise and describe current and future trends in educational technology.</p>
+        <p><b>2. </b>Identify classic and contemporary theories of learning and their applications in educational technology.</p>
+        <p><b>3. </b>Analyse how emerging technologies such as mobile learning, immersive experiences, and augmented and virtual reality support teaching and learning.</p>
+        <p><b>4. </b>Use innovative technologies to facilitate and inspire learning and creativity.</p>
+        <p></p>
+        <p><br></p>
+    </div>
+
+    <div id="Course2" class="dstabcontent">
+        <div class="myrow">
+            <div class="mycolumn c-left">
+                <i class="fa fa-cogs"></i>
+            </div>
+            <div class="mycolumn c-right" style="background-color:#bbb;">
+                <h5 style="font-size:4px;">&nbsp;</h5>
+                <h4>Course Content</h4>
+            </div>
+        </div>
+        <!-- Course Content to be written down here -->
+        <p>
+            <strong> Definition and history of the field</strong>
+            <br>
+            <strong> Instructional design models:</strong>
+        </p>
+        <ul>
+            <li>characteristics of foundational Instructional Design Models
+            </li>
+            <li> examples of instructional design models, e.g., ADDIE</li>
+            <li> alternative models to ADDIE</li>
+        </ul>
+        <br>
+        <strong> Theories and models of learning and instruction: </strong>
+
+        Psychological foundations of instructional design, constructivism for active, authentic learning; the learning sciences and where they come from and what it means for instructional designers, d) motivation, volition, and performance
+        <br>
+        <strong> Organizing and Delivering thoughts and messages: </strong>
+        Understanding your leadership role and its relation to communication;
+        Organizing your ideas using mind mapping;
+        Presenting vs Public Speaking;
+        Essentials of Public Speaking;
+        <br>
+        <strong> Earning Credibility as a leader: </strong>
+        Characteristics of a credible Leader; Changing communication Style depending on team member and condition; Motivating through communication; Creating an environment of engagement;
+        <br>
+        <strong> Winning minds and Hearts of People:</strong>
+        Knowing your audience; Adjusting your message to accommodate audience’s needs,wants and style; Communicating difficult news or unpopular messages;
+        Leading and communicating during crisis;
+        <br>
+        <strong> Building Consensus,Commitment and Cooperation: </strong> Principles of Ethical Leadership; Ethical Dilemmas faced by Leaders; Techniques for Building Consensus; Securing Commitment and Cooperation to Change Initiatives;
+        <br>
+        <strong> Leading Organizational Communication: </strong>
+        Controlling and Managing Rumors;
+        Dealing and Managing Office Conflicts;
+        Responding to Key Political Behaviour;
+        Types of Grapevine Chain;
+        <br>
+        <strong> Leading Cultural Change: </strong>
+        Concept of Culture;
+        Culture and Communication;
+        Choosing Appropriate Channels of Communication;
+        Communicating and Leading Organizational Vision,Mission and Values;
+        <br>
+        <strong> Functions of Effective Communication: </strong>
+        Rationalizing;
+        Problem - solving;
+        conflict management;
+        Gaining Compliance
+        <p></p>
+    </div>
+
+    <div id="Course3" class="dstabcontent">
+        <ol class="olcards">
+            <!-- Module One Write Here -->
+            <li style="--cardColor:#ff7f50">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=1">
+                        <div class="title">Module 1: Introduction to LDT and Underpining Theories</div>
+                    </a>
+                </div>
+            </li>
+            <li style="--cardColor:#037b90">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=2">
+                        <div class="title">Module 2: Foundations of Learning Design</div>
+                    </a>
+                </div>
+            </li>
+            <li style="--cardColor:#ff7f50">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=3">
+                        <div class="title">Module 3: Conducting Research for Design</div>
+                    </a>
+                </div>
+            </li>
+            <li style="--cardColor:#037b90">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=4">
+                        <div class="title">Module 4: Determining Environmental and Contextual Needs</div>
+                    </a>
+                </div>
+            </li>
+            <li style="--cardColor:#ff7f50">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=5">
+                        <div class="title">Module 5: Conducting a Learner Analysis</div>
+                    </a>
+                </div>
+            </li>
+            <li style="--cardColor:#037b90">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=6">
+                        <div class="title">Module 6: Pre-Planning and Design</div>
+                    </a>
+                </div>
+            </li>
+            <li style="--cardColor:#ff7f50">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=7">
+                        <div class="title">Module 7: Evaluating in LD</div>
+                    </a>
+                </div>
+            </li>
+            <li style="--cardColor:#037b90">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=8">
+                        <div class="title">Module 8: Implementation and Instructional Design</div>
+                    </a>
+                </div>
+            </li>
+            <li style="--cardColor:#ff7f50">
+                <div class="content">
+                    <a style="color:black; text-decoration: none" href="https://somas.ouk.ac.ke/course/view.php?id=841&amp;section=9">
+                        <div class="title">Module 9: Instructional Design Knowledge</div>
+                    </a>
+                </div>
+            </li>
+        </ol>
+    </div>
+
+
+
+    <script>
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("dstabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.getElementById("scroll-to-bottom-button").addEventListener("click", function() {
+
+            document.body.scrollIntoView({
+                behavior: "smooth",
+                block: "end"
+            });
+
+        });
+    </script>
+</div>

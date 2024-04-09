@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+
+    <!-- Start your jsxgraph here -->
+    <script>
+        var board = JXG.JSXGraph.initBoard('jxgbox', { // STACK: when moving to STACK change 'jxgboard' for divid
+            boundingbox: [-1, 7, 9, -1],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: true,
+            showNavigation: true
+        });
+
+
+        <!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.6/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.6/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+
+    <!-- Start your jsxgraph here -->
+    <script>
+        const board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [-5, 5, 5, -5], axis: true
+        });
+
+        // Plot functions only up to the mutual intersections
+        var function1 = board.create('functiongraph', ['(x+1)^2+1', -2, 0]);
+        var function2 = board.create('functiongraph', ['(x-1)^2+1', 0, 2]);
+        // Note: This function goes backwards, i.e. from 3 to -3.
+        var function4 = board.create('functiongraph', ['(x/3)^2-1', 3, -3]);
+
+        // You can copy this function and then use it like in the examples below.
+        // element_list is a list of elements defining the outline of the function.
+        // The elements can be FunctionGraphs or Pairs of coordinates (encoding points)
+        // properties is a dictionary of properties for the generated function.
+        function make_filled_curve(board, element_list, properties) {
+            var curve = board.create('curve', [[], []], properties);
+            curve.updateDataArray = function () {
+                this.dataX = [];
+                this.dataY = [];
+                for (const element of element_list) {
+                    if (Array.isArray(element)) {
+                        // Add the point to the curve
+                        this.dataX.push(element[0]);
+                        this.dataY.push(element[1]);
+                    } else {
+                        // Copy all points from function
+                        this.dataX = this.dataX.concat(element.points.map(p => p.usrCoords[1]));
+                        this.dataY = this.dataY.concat(element.points.map(p => p.usrCoords[2]));
+                    }
+                }
+                // Close the loop
+                this.dataX.push(this.dataX[0]);
+                this.dataY.push(this.dataY[0]);
+            };
+            board.update();
+        }
+
+        // Plot different filled functions
+        make_filled_curve(board, [function1, function2, function4], { strokeWidth: 3, fillColor: 'yellow', fillOpacity: 0.3 })
+        make_filled_curve(board, [function2, [1,3]], { strokeWidth: 3, fillColor: 'green', fillOpacity: 0.3 })
+        make_filled_curve(board, [function1, [0,3], [-2,3]], { strokeWidth: 3, fillColor: 'red', fillOpacity: 0.3 })
+
+    </script>
+
+</body>
+
+</html>
+
+    </script>
+
+</body>
+
+</html>

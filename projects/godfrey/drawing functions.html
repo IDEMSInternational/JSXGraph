@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+
+    <!-- Start your jsxgraph here -->
+    <script>
+        var board = JXG.JSXGraph.initBoard('jxgbox', { // STACK: when moving to STACK change 'jxgboard' for divid
+            boundingbox: [-5, 7, 9, -5],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: true,
+            showNavigation: true
+        });
+        //drawing functions
+        var p = board.create('point', [1,2],{name:"p", size:5, color:"green"});
+        var q = board.create('point', [5,4],{name:"q", size:5,face:'diamond', color:"red"});
+        var line1 = board.create("line",[p,q]);
+        var graph1 = board.create('functiongraph', ['sin(x)', -4, 8],{name:'sin(x)', withLabel:true});
+        var graph2 = board.create('functiongraph', [function(x){return x*x-2;}, -3, 3],{name:'x^2 - 2', withLabel:true, strokeColor:'red'});
+        var line2 = board.create("line",[[2,2],[2,6]]);
+        var line3 = board.create("line",[[-2,2],[-2,6]]);
+        var line4 = board.create("line",[[5,5],[7,11]]);
+        var line5 = board.create("line",[[-3,3],[-3,7]]);
+
+
+    </script>
+
+</body>
+
+</html>

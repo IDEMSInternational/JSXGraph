@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;">
+    </div>
+
+    <!-- Start your jsxgraph here -->
+    <script>
+
+        var board = JXG.JSXGraph.initBoard('jxgbox', { /* STACK: when moving to STACK change 'jxgboard' for divid*/
+            boundingbox: [-1.2, 1.2, 1.2, -1.2],
+            keepaspectratio: true,
+            showCopyright: false,
+            axis: false,
+            showNavigation: false
+        });
+
+
+
+        var centre = board.create('point', [0, 0], {
+            fixed: true,
+            name: "A"
+        });
+
+        var pie = board.create('circle', [centre, 1], {
+            fixed: true
+        });
+
+        var p1 = board.create('glider', [-1, 0, pie], {
+            name: ""
+        });
+
+      var p2 = board.create('glider', [0, 1, pie], {
+            name: ""
+        });
+
+      var p3 = board.create('glider', [0, -1, pie], {
+            name: ""
+        });
+
+       var p4 = board.create('glider', [-1, -1, pie], {
+            name: ""
+        });
+
+       // p5 = board.create('glider', [-0.86602, -0.5, pie], {
+           // name: ""
+       // });
+
+        //p6 = board.create('glider', [-0.86602, 0.5, pie], {
+            //name: ""
+        //});
+
+        var points_list = [p1, p2, p3, p4];
+
+        var points_num = points_list.length;
+
+        var sector_names = ["Student 1", "Student 2", "Student 3", "Student 4", "Student 5", "Student 6"]; /* STACK: Add names of sectors */
+
+        var i = 0;
+
+        for (i = 0; i <= points_num - 1; i++) {
+            if (i < points_num - 1) {
+                board.create('sector', [centre, points_list[i], points_list[i + 1]]),
+                    board.create('midpoint', [points_list[i], points_list[i + 1]], {
+                        name: sector_names[i],
+                        size: 0,
+                        label: {
+                            fontSize: 16
+                        }
+                    }),
+                    board.create('angle', [points_list[i + 1], centre, points_list[i]], {
+                        radius: 0.2,
+                        name: function () {
+                            return JXG.Math.Geometry.trueAngle(points_list[i + 1], centre, points_list[i]).toFixed(0) + '°';
+                        }
+                    })
+            } else {
+                board.create('sector', [centre, points_list[i], points_list[0]]),
+                    board.create('midpoint', [points_list[i], points_list[0]], {
+                        name: sector_names[i],
+                        size: 0,
+                        label: {
+                            fontSize: 16
+                        }
+                    }),
+                    board.create('angle', [points_list[0], centre, points_list[i]], {
+                        radius: 0.2,
+                        name: function () {
+                            return JXG.Math.Geometry.trueAngle(points_list[0], centre, points_list[i]).toFixed(0) + '°';
+                        }
+                    })
+            }
+        };
+       
+    </script>
+
+
+
+</html>
+
+
+

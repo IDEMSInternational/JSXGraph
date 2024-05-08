@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width: 600px; height: 600px"></div>
+
+    <!-- Start your jsxgraph here -->
+    <script>
+        var ymax = 24;
+        var board = JXG.JSXGraph.initBoard("jxgbox", {
+            // STACK: when moving to STACK change 'jxgboard' for divid
+            boundingbox: [-10, 1.1 * ymax, 10, -5],
+            keepaspectratio: false,
+            showCopyright: false,
+            axis: true,
+            showNavigation: false,
+        });
+        // Define points
+        var point1 = board.create('point', [1, 6], { name: '\\((1, 6)\\)', color: 'red', size: 4, fixed: true });
+        var point2 = board.create('point', [3, 24], { name: '\\((3, 24)\\)', color: 'red', size: 4, fixed: true });
+
+        // Define function
+        function f(x) {
+            return 3 * Math.pow(2, x);
+        }
+        // 3*2^x is C*a^x where C=3 and a=2 
+        // Plot function curve
+        var curve = board.create('functiongraph', [f, -10, 3.2], { strokeColor: 'blue', strokeWidth: 2, fixed: true });
+    </script>
+</body>
+
+</html>

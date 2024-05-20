@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- The jsxgraph version is defined in the next 2 lines (eg @1.4.5 defines version 1.4.5) -->
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.4.5/distrib/jsxgraphcore.js" type="text/javascript"
+        charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <!-- You can define the width and height of your applet here -->
+    <!-- If it's not the standard 600 by 600 then the syntax for STACK is 
+        [[jsxgraph height='Apx' width='Bpx']] where A is the height and B
+        is the width -->
+    <div id="jxgbox" class="jxgbox" style="width:600px; height:600px;"></div>
+
+
+    <!-- Start your jsxgraph here -->
+    <script>
+        var board = JXG.JSXGraph.initBoard('jxgbox', { // STACK: when moving to STACK change 'jxgboard' for divid
+            boundingbox: [-1, 7, 9, -1],
+            keepaspectratio: false,
+            showCopyright: false,
+            axis: true,
+            showNavigation: true
+        });
+    //boundingbox: [-2, 10000, 10, -1000],
+    //keepaspectratio: false,
+    //axis: true,
+    //showNavigation: false,
+//});
+
+// Define functions
+function f(x) {
+    return Math.pow(x, 10); // f(x)=x^10 
+}
+
+function g(x) {
+    return Math.exp(x); // g(x)=e^x
+}
+
+// Plot function curves
+var curveF = board.create('functiongraph', [f, -2, 10], { strokeColor: 'blue', strokeWidth: 2, name: 'f(x) = x^{10}' });
+var curveG = board.create('functiongraph', [g, -5, 10], { strokeColor: 'red', strokeWidth: 2, name: 'g(x) = e^x' });
+
+// Find intersection points
+var intersection1 = board.create('intersection', [curveF, curveG, 0], { name: 'Intersection 1', color: 'green', size: 4 });
+var intersection2 = board.create('intersection', [curveF, curveG, 1], { name: 'Intersection 2', color: 'purple', size: 4 });
+
+// Dotted lines for intersection 1
+var xLine1 = board.create('line', [[intersection1.X(), 0], intersection1], {
+    strokeColor: 'green',
+    dash: 2,
+    straightFirst: false,
+    straightLast: false
+});
+
+var yLine1 = board.create('line', [[0, intersection1.Y()], intersection1], {
+    strokeColor: 'green',
+    dash: 2,
+    straightFirst: false,
+    straightLast: false
+});
+
+// Dotted lines for intersection 2
+var xLine2 = board.create('line', [[intersection2.X(), 0], intersection2], {
+    strokeColor: 'purple',
+    dash: 2,
+    straightFirst: false,
+    straightLast: false
+});
+
+var yLine2 = board.create('line', [[0, intersection2.Y()], intersection2], {
+    strokeColor: 'purple',
+    dash: 2,
+    straightFirst: false,
+    straightLast: false
+});
+// Calculate coordinates of intersection points
+var coords1 = "\\((" + intersection1.coords.usrCoords[1].toFixed(2) + ", " + intersection1.coords.usrCoords[2].toFixed(2) + ")\\)";
+var coords2 = "\\((" + intersection2.coords.usrCoords[1].toFixed(2) + ", " + intersection2.coords.usrCoords[2].toFixed(2) + ")\\)";
+
+// Update the names of intersection points to include coordinates
+intersection1.setAttribute({ name: 'Intersection 1 ' + coords1 });
+intersection2.setAttribute({ name: 'Intersection 2 ' + coords2 });
+
+
+    </script>
+
+</body>
+
+</html>

@@ -24,7 +24,7 @@
     <!-- Start your jsxgraph here -->
     <script>
         var board = JXG.JSXGraph.initBoard('jxgbox', { // STACK: when moving to STACK change 'jxgboard' for divid
-            boundingbox: [-1, 7, 9, -1],
+            boundingbox: [-2, 5, 2, -2],
             keepaspectratio: false,
             showCopyright: false,
             axis: true,
@@ -46,9 +46,29 @@ function g(x) {
 }
 
 // Plot function curves
-var curveF = board.create('functiongraph', [f, -2, 10], { strokeColor: 'blue', strokeWidth: 2, name: 'f(x) = x^{10}' });
-var curveG = board.create('functiongraph', [g, -5, 10], { strokeColor: 'red', strokeWidth: 2, name: 'g(x) = e^x' });
-
+//var curveF = board.create('functiongraph', [f, -2, 10], { strokeColor: 'blue', strokeWidth: 2, name: 'f(x) = x^{10}' });
+//var curveG = board.create('functiongraph', [g, -5, 10], { strokeColor: 'red', strokeWidth: 2, name: 'g(x) = e^x' });
+// Plot function curves
+var curveF = board.create('functiongraph', [f, -2, 10], {
+    strokeColor: 'blue',
+    strokeWidth: 2,
+    name: 'f(x) = x^{10}',
+    withLabel: true,
+    label: {
+        position: 'rt',
+        offset: [-10, 10]
+    }
+});
+var curveG = board.create('functiongraph', [g, -2, 10], {
+    strokeColor: 'red',
+    strokeWidth: 2,
+    name: 'g(x) = e^x',
+    withLabel: true,
+    label: {
+        position: 'rt',
+        offset: [10, 10]
+    }
+});
 // Find intersection points
 var intersection1 = board.create('intersection', [curveF, curveG, 0], { name: 'Intersection 1', color: 'green', size: 4 });
 var intersection2 = board.create('intersection', [curveF, curveG, 1], { name: 'Intersection 2', color: 'purple', size: 4 });

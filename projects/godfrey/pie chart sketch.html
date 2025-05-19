@@ -31,11 +31,9 @@
             showNavigation: false
         });
 
-
-
         var centre = board.create('point', [0, 0], {
             fixed: true,
-            name: "A"
+            name: "A"   
         });
 
         var pie = board.create('circle', [centre, 1], {
@@ -46,21 +44,21 @@
             name: ""
         });
 
-      var p2 = board.create('glider', [0, 1, pie], {
-            name: ""
-        });
+        var p2 = board.create('glider', [0, 1, pie], {
+                name: ""
+            });
 
-      var p3 = board.create('glider', [0, -1, pie], {
-            name: ""
-        });
+        var p3 = board.create('glider', [0, -1, pie], {
+                name: ""
+            });
 
-       var p4 = board.create('glider', [-1, -1, pie], {
-            name: ""
-        });
+        var p4 = board.create('glider', [-1, -1, pie], {
+                name: ""
+            });
 
-       // p5 = board.create('glider', [-0.86602, -0.5, pie], {
-           // name: ""
-       // });
+        // p5 = board.create('glider', [-0.86602, -0.5, pie], {
+            // name: ""
+        // });
 
         //p6 = board.create('glider', [-0.86602, 0.5, pie], {
             //name: ""
@@ -78,6 +76,7 @@
             if (i < points_num - 1) {
                 board.create('sector', [centre, points_list[i], points_list[i + 1]]),
                     board.create('midpoint', [points_list[i], points_list[i + 1]], {
+                        
                         name: sector_names[i],
                         size: 0,
                         label: {
@@ -86,6 +85,7 @@
                     }),
                     board.create('angle', [points_list[i + 1], centre, points_list[i]], {
                         radius: 0.2,
+
                         name: function () {
                             return JXG.Math.Geometry.trueAngle(points_list[i + 1], centre, points_list[i]).toFixed(0) + '°';
                         }
